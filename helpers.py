@@ -1,4 +1,4 @@
-from cs50 import db
+from cs50 import SQL
 from flask import redirect, session
 from functools import wraps
 

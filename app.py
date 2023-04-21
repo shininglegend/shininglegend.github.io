@@ -9,7 +9,7 @@ from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from helpers import apology, login_required, lookup, usd
+from helpers import login_required, admin_required
 
 # Configure application
 app = Flask(__name__)
@@ -32,7 +32,9 @@ def after_request(response):
 
 
 # Login page
-
+@app.route("/")
+def index():
+    return render_template("index.html")
 
 # Journalling page
 

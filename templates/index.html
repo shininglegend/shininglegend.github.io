@@ -5,13 +5,13 @@
 {% endblock %}
 
 {% block main %}
-    <h2>Current cash in bank: {{ cash | usd }}</h2>
-    <h3>Grand total {{ worth | usd }}</h3>
+    <h2>Current user logged in: </h2>
+    <h3>Make a new entry: <a href="/journal">Let's Journal!</a></h3>
 
     <!-- This code is adapted from the birthdays pset -->
     <div class="section">
-        <h2>All Holdings</h2>
-        <table>
+        <h2>Your Posts</h2>
+        <!-- <table>
             <thead>
                 <tr>
                     <th>Name</th>
@@ -27,11 +27,9 @@
                         <td> {{ share.name }} </td>
                         <td> {{ share.symbol }} </td>
                         <td> {{ share.amount }} </td>
-                        <td> {{ share.price | usd }} </td>
-                        <td> {{ share.value | usd }} </td>
                     </tr>
                 {% endfor %}
             </tbody>
-        </table>
+        </table> -->
     </div>
 {% endblock %}
