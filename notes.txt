@@ -1,0 +1,4 @@
+Database tables
+- Journals (id, users, timestamp, entry, draft?)
+- Responses (id, users, timestamp, response, draft?)
+- Users (id, admin, name, email, date-joined, )
