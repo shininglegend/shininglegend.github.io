@@ -56,7 +56,9 @@ def after_request(response):
 @login_required
 @admin_required
 def client_journals():
-    pass
+    return render_template("client-journals")
+
+
 # Login page (stolen from my finance pset but like it was so well written :) 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -95,8 +97,25 @@ def login():
 
 
 # Journalling page
+@app.route("/")
+@login_required
+@admin_required
+def homepage():
+    return render_template("index.html")
 
 
 # Response page
+@app.route("/response")
+@login_required
+@admin_required
+def response():
+    return render_template("response.html")
+
+
+# Register page
+@app.route("/register")
+def register():
+    return render_template("register.html")
+
 
 
