@@ -19,14 +19,13 @@ def login_required(f):
 def admin_required(f):
     # This checks for admin status
     # Loosely based off the code above
-    # Check the user id
-    #user_status = db.execute("SELECT adminstatus FROM users WHERE id=?", session.get("user_id"))[0]["adminstatus"]
-
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        #if user_status == False:
-        return redirect("/login")
-        #return f(*args, **kwargs)
+        # Check the user id
+        user_status = db.execute("SELECT admin FROM users WHERE id=?", session.get("user_id"))[0]["admin"]
+        if user_status == False:
+            return redirect("/login")
+        return f(*args, **kwargs)
     return decorated_function
 
 # If you done messed up! (This is temporary)
@@ -43,3 +42,8 @@ def apology(message, code=400):
             s = s.replace(old, new)
         return s
     return render_template("apology.html", top=code, bottom=escape(message)), code
+
+# This code checks whether a code is an admin code and whether it is valid
+def check(code, email):
+    # TODO: Implement this properly!
+    return True, True

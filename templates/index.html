@@ -5,8 +5,10 @@
 {% endblock %}
 
 {% block main %}
-    <h2>Current user logged in: </h2>
-    <h3>Make a new entry: <a href="/journal">Let's Journal!</a></h3>
+    {% if user %}
+        <h2>Current user logged in: {{ user }} </h2>
+    {% endif %}
+    <h3><a href="/journal">Make a new entry</a></h3>
 
     <!-- This code is adapted from the birthdays pset -->
     <div class="section">

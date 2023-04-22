@@ -10,9 +10,14 @@
 }
 
 /* Size for brand */
-nav .navbar-brand
-{
+nav .navbar-brand {
     font-size: xx-large;
+    padding-right: 0.5%;
+}
+
+/* Error text */
+.error  {
+    color:red;
 }
 
 /* Styling borrowed from birthday's pset css */
@@ -30,3 +35,4 @@ table td {
 tbody tr:nth-of-type(odd) {
     background-color: rgb(179, 208, 255, 0.3)
 }
+

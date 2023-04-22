@@ -30,9 +30,13 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbar">
                     {% if session["user_id"] %}
-                        <ul class="navbar-nav me-auto mt-2">
+                        <ul class="navbar-nav me-auto mt-2 justify-content-end">
                             <li class="nav-item"><a class="nav-link" href="/">Your Journals</a></li>
                             <li class="nav-item"><a class="nav-link" href="/journal">New Entry</a></li>
+                            {% if session["admin"] %}
+                                <li class="nav-item"><a class="nav-link" href="/client-journals">Journals</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/clients">Clients</a></li>
+                            {% endif %}
                         </ul>
                         <ul class="navbar-nav ms-auto mt-2">
                             <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
@@ -41,12 +45,6 @@
                         <ul class="navbar-nav ms-auto mt-2">
                             <li class="nav-item"><a class="nav-link" href="/contact-us">Contact Us</a></li>
                             <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
-                        </ul>
-                    {% endif %}
-                    {% if session["admin"] %}
-                        <ul>
-                            <li class="nav-item"><a class="nav-link" href="/client-journals">Journals</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/clients">Clients</a></li>
                         </ul>
                     {% endif %}
                 </div>
