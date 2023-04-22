@@ -1,4 +1,6 @@
 # The venv #
-############
 .venv
+# Also don't need to upload the session lol #
 flask_session
+# Don't upload the database! #
+journals.db

@@ -113,9 +113,12 @@ def response():
 
 
 # Register page
-@app.route("/register")
+@app.route("/register", methods=["GET", "POST"])
 def register():
     return render_template("register.html")
 
 
-
+# Contact-us page
+@app.route("/contact-us")
+def contact_us():
+    return render_template("contact-us.html")

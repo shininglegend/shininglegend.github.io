@@ -4,3 +4,4 @@ Database tables
 - Users (id, admin, name, email, date-joined, password_hash)
 *- Clients (id, user-id, name)
 *- Books_sent (id, client_id, book_id, date)
+*- Books (id, title, type, isbn)

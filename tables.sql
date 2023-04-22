@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS users
+    (
+        id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+        admin BOOLEAN DEFAULT TRUE NOT NULL,
+        email TEXT UNIQUE NOT NULL,
+        hash TEXT NOT NULL,
+        name TEXT,
+        joined TIMESTAMP NOT NULL
+    );
