@@ -1,5 +1,5 @@
 Database tables
-- Journals (id, users, timestamp, entry, status)
+- Journals (id, users, timestamp (entry + resp), entry, status)
 - Responses (id, users, timestamp, response, status)
 - Users (id, admin, name, email, date-joined, password_hash)
 - Codes (id, admin, code, email, validity)

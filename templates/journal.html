@@ -5,8 +5,29 @@
 {% endblock %}
 
 {% block main %}
-    <!-- input field with multiple lines. Perhaps a scrollbar?-->
-
-    <!-- Save Draft, Publish, Delete Draft Buttons -->
-    
+    <div class="journal-area">
+        <h1>Welcome to the Journaling Area!</h1>
+        <p>Feel free to express thoughts, opinions, mindset, reactions, and more!</p>
+        <!-- input field with multiple lines. Perhaps a scrollbar?-->
+        <form action="/journal" method="post">
+            <div class="container">
+                <div class="mb-3">
+                    <label for="journal" aria-describedby="journal" class="visually-hidden">Journal here!</label>
+                    <textarea autocomplete="off" autofocus aria-label="Journal" class="form-control journal fs-3" placeholder="Journal here!" id="journal" name="journal" rows=13 required>{{ content }}</textarea>
+                </div>
+                <!-- Save Draft, Publish, Delete Draft Buttons -->
+                <div class="row g-3">
+                    <div class="col-lg">
+                        <button class="btn btn-outline-secondary">Save Draft</button>
+                    </div>
+                    <div class="col-lg">
+                        <button class="btn btn-outline-success">Publish and Send</button>
+                    </div>
+                    <div class="col-lg">
+                        <button class="btn btn-outline-warning">Delete Draft</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 {% endblock %}

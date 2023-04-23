@@ -19,14 +19,21 @@ def index():
     return render_template("index.html")
 
 # TODO: Journalling page
-@app.route("/journal")
+@app.route("/journal", methods=["GET", "POST"])
 @login_required
 def journal():
-    # I'll use url_for()
-    return render_template("journal.html")
+    if request.method == "POST":
+        # Save the entry
+        pass
+    # Make a new journal 
+    else:
+        #journal_id = db.execute("INSERT INTO journals (user_id) VALUES (?)", session.get("user_id"))
+        return redirect(url_for('journals', post_id = 1))
 
 # TODO: Review an individual Journal's page
-@app.route("/journals/<int:post_id>")
+@app.route("/journals/<int:post_id>", methods=["GET", "POST"])
 @login_required
 def journals(post_id):
-    return render_template("journal.html")
+    # If this is a new request
+    return render_template("journal.html", post_id=post_id)
+    # Otherwise, save the entry.
