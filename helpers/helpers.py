@@ -2,8 +2,7 @@ from cs50 import SQL
 from flask import redirect, session, render_template
 from functools import wraps
 
-# Configure CS50 Library to use SQLite database
-db = SQL("sqlite:///journals.db")
+from init import app, db
 
 def login_required(f):
     # Decorate routes to require login.

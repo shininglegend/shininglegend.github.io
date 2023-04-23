@@ -10,5 +10,5 @@ Database tables
 TODO
 - Move register, login, logout, manage_account to user_management.py
 - Move clients, client_journals, respond to admin_pages.py
-- Move index, new_entry, view_jornal to journal_pages.py
+- Move index, new_entry, view_journal to journal_pages.py
 - Add functionality for others
