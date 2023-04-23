@@ -1,32 +1,32 @@
 # Code written by Titus Murphy for CS-50
 """ These functions handle the following pages
-- index (homepage, "/")
-- journal (new_entry)
-- view_journal
+s = singular entry, m = multiple entries
+- index (homepage, "/") (m)
+- journal (new_entry) (s)
+- view_journal (s)
 """
 
-from cs50 import SQL
-from flask import Flask, redirect, render_template, request, session
-from flask_session import Session
+from flask import Flask, redirect, render_template, request, session, url_for
 
 from helpers.helpers import *
 from init import app, db
 
 
-# Homepage
+# TODO: Homepage
 @app.route("/")
 @login_required
 def index():
     return render_template("index.html")
 
-# Journalling page
+# TODO: Journalling page
 @app.route("/journal")
 @login_required
 def journal():
+    # I'll use url_for()
     return render_template("journal.html")
 
-# View Journals page
-@app.route("/mjournal")
+# TODO: Review an individual Journal's page
+@app.route("/journals/<int:post_id>")
 @login_required
-def journal():
+def journals(post_id):
     return render_template("journal.html")

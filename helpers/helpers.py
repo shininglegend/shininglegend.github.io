@@ -1,4 +1,3 @@
-from cs50 import SQL
 from flask import redirect, session, render_template
 from functools import wraps
 
@@ -46,3 +45,7 @@ def apology(message, code=400):
 def check(code, email):
     # TODO: Implement this properly!
     return True, True
+
+# TODO: Generate and add a new random code
+def gencode(email):
+    pass

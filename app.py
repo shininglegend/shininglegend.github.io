@@ -47,3 +47,7 @@ def response():
 @app.route("/contact-us")
 def contact_us():
     return render_template("contact-us.html")
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('page_not_found.html'), 404
