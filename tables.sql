@@ -22,8 +22,9 @@ CREATE TABLE IF NOT EXISTS journals (
         resp_id INTEGER,
         content TEXT,
         response TEXT,
-        time_subm TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+        time_crte TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
         time_resp TIMESTAMP,
+        submitted BOOLEAN DEFAULT 0,
         FOREIGN KEY (user_id) REFERENCES users(id),
         FOREIGN KEY (resp_id) REFERENCES users(id)
 );

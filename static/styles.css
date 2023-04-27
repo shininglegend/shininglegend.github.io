@@ -41,8 +41,13 @@ nav .navbar-brand {
 }
 
 /* Error text */
-.error  {
+.error {
     color:red;
+}
+
+/* Response text */
+.response {
+    color:grey;
 }
 
 /* Styling borrowed from birthday's pset css */

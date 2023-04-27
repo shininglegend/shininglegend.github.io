@@ -1,7 +1,7 @@
 from flask import redirect, session, render_template
 from functools import wraps
 
-from init import app, db
+from init import db
 
 def login_required(f):
     # Decorate routes to require login.

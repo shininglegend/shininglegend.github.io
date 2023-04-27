@@ -14,7 +14,7 @@ from helpers.user_management import *
 # import the app/db in order to avoid circular imports
 from init import app
 
-
+# May have stolen this function from the finance pset:)
 @app.after_request
 def after_request(response):
     """Ensure responses aren't cached"""
@@ -29,7 +29,7 @@ def after_request(response):
 def contact_us():
     return render_template("contact-us.html")
 
-
+# Handle cool 404 errors 
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('page_not_found.html'), 404
