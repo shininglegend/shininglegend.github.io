@@ -1,3 +1,8 @@
+# This background code written for the Inner Excellence Journaling project
+# This code is meant to run once to avoid a circular dependancy
+# Written by Titus Murphy. (c) 2023
+
+
 from cs50 import SQL
 from flask import Flask, redirect, render_template, request, session
 from flask_session import Session

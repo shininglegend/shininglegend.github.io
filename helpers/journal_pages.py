@@ -35,5 +35,8 @@ def journal():
 @login_required
 def journals(post_id):
     # If this is a new request
-    return render_template("journal.html", post_id=post_id)
+    if request.method == "GET":
+        return render_template("journal.html", post_id=post_id)
     # Otherwise, save the entry.
+    else:
+        return apology("Not done yet.", 404)

@@ -4,3 +4,7 @@
 flask_session
 # Don't upload the database! #
 journals.db
+
+# And the pycache
+__pycache__
+helpers/__pycache__

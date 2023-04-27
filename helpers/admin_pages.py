@@ -19,6 +19,7 @@ from init import app, db
 def add_client():
     return render_template("add_client.html")
 
+
 # TODO: View Client's journals
 @app.route("/client-journals")
 @login_required
@@ -26,9 +27,19 @@ def add_client():
 def client_journals():
     return render_template("client-journals.html")
 
+
 # TODO: Review an individual Journal's page
 @app.route("/respond/<int:post_id>")
 @login_required
 @admin_required
 def respond(post_id):
     return render_template("journals.html")
+
+
+# TODO: Response page
+@app.route("/response")
+@login_required
+@admin_required
+def response():
+    request.args.get("userid")
+    return render_template("response.html")
