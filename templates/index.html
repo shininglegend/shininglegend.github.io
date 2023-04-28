@@ -5,33 +5,45 @@
 {% endblock %}
 
 {% block main %}
-    {% if user %}
-        <h2>Current user logged in: {{ user }} </h2>
-    {% endif %}
-    <h3><a href="/journal">Make a new entry</a></h3>
+    <div>
+        {% if user %}
+            <h2>Current user logged in: {{ user }} </h2>
+        {% endif %}
+        <p><a href="/journal">Make a new entry</a></p>
 
-    <!-- This code is adapted from the birthdays pset -->
-    <div class="section">
-        <h2>Your Posts</h2>
-        <!-- <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Symbol</th>
-                    <th>Amount Owned</th>
-                    <th>Current Price</th>
-                    <th>Current Value</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for share in shares %}
-                    <tr>
-                        <td> {{ share.name }} </td>
-                        <td> {{ share.symbol }} </td>
-                        <td> {{ share.amount }} </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table> -->
+        <!-- This code is adapted from the birthdays pset -->
+        {% if posts %}
+            <div class="section">
+                <h2>Your Posts</h2>
+                <table>
+                    <tbody>
+                        {% for journal in posts %}
+                            <tr>
+                                <td> Date: {{ journal.time_crte }} </td>
+                            <tr>
+                                <!-- From: https://stackoverflow.com/questions/10070232/how-to-make-a-cell-of-table-hyperlink -->
+                                <td><a href={{ "/journals/" ~journal.id }}>Go to?</a></td>
+                                {% if journal.content %}
+                                    <td> {{ journal.content }} </td>
+                                {% else %}
+                                    <td> This seems to be an empty draft.</td>
+                                {% endif %}
+                                {% if journal.submitted == 1 %}
+                                    {% if journal.response %}
+                                        <td> {{ journal.response }} </td>
+                                    {% else %}
+                                        <td> No response yet.</td>
+                                    {% endif %}
+                                {% else %}
+                                    <td> You haven't submitted this yet. </td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <h3>You have no posts yet.</h3>
+        {% endif %}
     </div>
 {% endblock %}

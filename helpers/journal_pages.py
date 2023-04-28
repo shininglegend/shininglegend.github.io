@@ -6,19 +6,22 @@ s = singular entry, m = multiple entries
 - view_journal (s)
 """
 
-from flask import Flask, redirect, render_template, request, session, url_for
+from flask import Flask, redirect, render_template, request, session, url_for, flash
 
 from helpers.helpers import *
 from init import app, db
 
 
-# TODO: Homepage
+# Homepage
 @app.route("/")
 @login_required
 def index():
-    return render_template("index.html")
+    # Get all their posts from before
+    posts = db.execute("""SELECT * FROM journals WHERE user_id=? 
+                       ORDER BY submitted, time_resp""", session['user_id'])
+    return render_template("index.html", posts=posts)
 
-# TODO: Journalling page
+# Journalling page
 @app.route("/journal")
 @login_required
 def journal():
@@ -69,7 +72,8 @@ def journals(post_id):
         elif request.form[form_button_name] == "deleteDraft":
             # Delete the draft
             db.execute("DELETE FROM journals WHERE id=? AND user_id=?", post_id, session['user_id'])
-            # FIXME: Confirmation? Logs?
+            flash("I deleted your journal entry.")
+            # TODO: Logs? (after the class perhaps)
             return redirect("/")
 
         else:

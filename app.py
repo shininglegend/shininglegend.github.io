@@ -29,7 +29,14 @@ def after_request(response):
 def contact_us():
     return render_template("contact-us.html")
 
+
 # Handle cool 404 errors 
 @app.errorhandler(404)
 def page_not_found(error):
-    return render_template('page_not_found.html'), 404
+    return render_template('error.html', error=error), 404
+
+
+# Handle annoying 500 errors
+@app.errorhandler(500)
+def server_error(error):
+    return render_template('error.html', error=error), 500
