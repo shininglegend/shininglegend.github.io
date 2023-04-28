@@ -60,7 +60,8 @@ def journals(post_id):
         if request.form[form_button_name] == "saveDraft":
             # Save the draft
             db.execute("UPDATE journals SET content=?, submitted=0 WHERE id=? AND user_id=?", content, post_id, session['user_id'])
-            return render_template("journal.html", post_id = post_id, content = content, response = "Successfully saved your draft.")
+            flash("I saved your draft!")
+            return render_template("journal.html", post_id = post_id, content = content)
         
         # "Submit" the draft. 
         elif request.form[form_button_name] == "pubAndSend":

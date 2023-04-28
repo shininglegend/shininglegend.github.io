@@ -6,8 +6,44 @@
 
 {% block main %}
     <!-- TODO: Unresponded Section -->
-    Coming soon!
-    <!-- TODO: Responded to Section -->
-    <hr> 
-    Coming soon!
+    <div class="section">
+        <h2>Client Posts</h2>
+        <table>
+            <tbody>
+                {% for journal in journals_new %}
+                    <tr>
+                        <td> Date: {{ journal.time_crte }} </td>
+                    <tr>
+                        <td><a href={{ "/journals/" ~journal.id }}>Go to?</a></td>
+                        <td> {{ journal.content }} </td>
+                        <td> {{ journal.response }} </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <hr>
+        <!-- TODO: Responded to Section -->
+        <table>
+            <tbody>
+                {% for journal in journals_old %}
+                    <tr>
+                        <td> Date: {{ journal.time_crte }} </td>
+                    <tr>
+                        <td><a href={{ "/journals/" ~journal.id }}>Go to?</a></td>
+                        {% if journal.content %}
+                            <td> {{ journal.content }} </td>
+                        {% else %}
+                            <td> This seems to be an empty draft.</td>
+                        {% endif %}
+                        {% if journal.response %}
+                            <td> {{ journal.response }} </td>
+                        {% else %}
+                            <td> No response yet.</td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>    
 {% endblock %}

@@ -25,7 +25,9 @@ def add_client():
 @login_required
 @admin_required
 def client_journals():
-    return render_template("client-journals.html")
+    journals_new = db.execute("SELECT * FROM JOURNALS WHERE submitted=1 AND response IS NULL AND content IS NOT NULL")
+    journals_old = db.execute("SELECT * FROM JOURNALS WHERE submitted=1 AND response IS NOT NULL AND content IS NOT NULL")
+    return render_template("client-journals.html", journals_new=journals_new, journals_old=journals_old)
 
 
 # TODO: Review an individual Journal's page
