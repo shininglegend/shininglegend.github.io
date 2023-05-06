@@ -22,7 +22,7 @@ def admin_required(f):
         # Check the user id
         user_status = db.execute("SELECT admin FROM users WHERE id=?", session.get("user_id"))[0]["admin"]
         if user_status == False:
-            return redirect("/login")
+            return redirect("/")
         return f(*args, **kwargs)
     return decorated_function
 
@@ -44,7 +44,7 @@ def apology(message, code=400):
 # This code checks whether a code is an admin code and whether it is valid
 def check(code, email):
     # TODO: Implement this properly!
-    return True, True
+    return False, True
 
 # TODO: Generate and add a new random code
 def gencode(email):

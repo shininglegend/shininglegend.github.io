@@ -50,13 +50,21 @@ nav .navbar-brand {
     color:grey;
 }
 
+.jbutton {
+    margin-bottom: 1.25rem;
+}
+
+.jbutton:hover {
+    background-color: green;
+}
+
 /* Styling borrowed from birthday's pset css */
 table {
     margin-bottom: 1rem;
     width: 100%;
 }
 
-.table a
+/* .table a
 {
     display:block;
     text-decoration:none;
@@ -64,9 +72,8 @@ table {
 
 table th,
 table td {
-    padding: 0.75rem;
-    vertical-align: left; 
-}
+    padding: 0.75rem; 
+} */
 
 tbody tr:nth-of-type(even) {
     background-color: rgb(179, 208, 255, 0.3)

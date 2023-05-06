@@ -5,7 +5,62 @@
 {% endblock %}
 
 {% block main %}
-
-    <h2>Coming soon!</h2>
+    <div class="section">
+        <h2 class="text-center">Your Posts</h2>
+        <table class="table">
+            <thead>
+                <tr class="row">
+                    <td class="col">Name</td>
+                    <td class="col">Email</td>
+                    <td class="col">Code</td>
+                    <td class="col">Joined</td>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Admins -->
+                <h3> Admins: </h3>
+                    {% for admin in admins %}
+                        <tr class="row">
+                            {% if admin.name %}
+                                <td class="col"> {{ admin.name }} </td>
+                            {% else %}
+                                <td class="col"> No name provided. </td>
+                            {% endif %}
+                            <td class="col"> {{ admin.email }} </td>
+                            <td class="col"> N/A </td>
+                            <td class="col"> {{ admin.joined | format_datetime("Joined") }} </td>
+                        </tr>
+                    {% endfor %}
+                <hr>
+                <h3>Clients</h3>
+                <!-- Clients that have already joined -->
+                {% for client in clients %}
+                    <tr class="row">
+                        {% if client.name %}
+                            <td class="col"> {{ client.name }} </td>
+                        {% else %}
+                            <td class="col"> No name provided. </td>
+                        {% endif %}
+                        <td class="col"> {{ client.email }} </td>
+                        <td class="col"> N/A </td>
+                        <td class="col"> {{ client.joined | format_datetime("Joined") }} </td>
+                    </tr>
+                {% endfor %}
+                <!-- New clients -->
+                {% if new_clients %}
+                    <hr>
+                    <h3> Codes: </h3>
+                    {% for client in new_clients %}
+                        <tr> 
+                            <td class="col"> This client has not joined yet. </td>
+                            <td class="col"> {{ client.email }} </td>
+                            <td class="col"> {{ client.code }} </td>
+                            <td class="col"> N/A </td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
 
 {% endblock %}

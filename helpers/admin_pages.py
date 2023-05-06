@@ -20,14 +20,14 @@ def add_client():
     return render_template("add_client.html")
 
 
-# TODO: View Client's journals
+# View Client's journals
 @app.route("/client-journals")
 @login_required
 @admin_required
 def client_journals():
     journals_new = db.execute("SELECT * FROM JOURNALS WHERE submitted=1 AND response IS NULL AND content IS NOT NULL")
     journals_old = db.execute("SELECT * FROM JOURNALS WHERE submitted=1 AND response IS NOT NULL AND content IS NOT NULL")
-    return render_template("client-journals.html", journals_new=journals_new, journals_old=journals_old)
+    return render_template("client-journals.html", journals_new = journals_new, journals_old = journals_old)
 
 
 # TODO: Review an individual Journal's page
@@ -45,3 +45,14 @@ def respond(post_id):
 def response():
     request.args.get("userid")
     return render_template("response.html")
+
+
+# Clients page
+@app.route("/clients")
+@login_required
+@admin_required
+def clients():
+    admins = db.execute("SELECT * FROM users WHERE admin=1 ORDER BY joined")
+    clients = db.execute("SELECT * FROM users WHERE admin=0 ORDER BY joined")
+    new_clients = db.execute("SELECT * FROM codes")
+    return render_template("clients.html", admins = admins, clients = clients, new_clients = new_clients)

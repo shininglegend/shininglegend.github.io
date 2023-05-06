@@ -1,9 +1,9 @@
 # This background code written for the Inner Excellence Journaling project
 # Written by Titus Murphy. (c) 2023
 
-
+from babel.dates import format_datetime as fdtime
 from flask import render_template, request
-
+from datetime import datetime
 # We import all the "helper functions" - stored at ./helpers/*
 from helpers.helpers import *
 
@@ -28,6 +28,21 @@ def after_request(response):
 @app.route("/contact-us")
 def contact_us():
     return render_template("contact-us.html")
+
+
+# Datetime filter
+@app.template_filter()
+def format_datetime(value, str="Created"):
+    currtime = datetime.now()
+    format = "%Y-%m-%d %H:%M:%S" 
+    timeCreated = datetime.strptime(value, format)
+    diff = currtime - timeCreated
+    if diff.days <=1:
+        return f"{str} about {round(diff.seconds/3600, 2)} hour(s) ago."
+    elif diff.days <= 30:
+        return f"{str} about {diff.days} day(s) ago."
+    else: 
+        return f"{str} about {round(diff.days/30)} month(s) ago."
 
 
 # Handle cool 404 errors 

@@ -34,7 +34,7 @@
                             <li class="nav-item"><a class="nav-link" href="/">Your Journals</a></li>
                             <li class="nav-item"><a class="nav-link" href="/journal">New Entry</a></li>
                             {% if session["admin"] %}
-                                <li class="nav-item"><a class="nav-link" href="/client-journals">Journals</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/client-journals">Client Journal</a></li>
                                 <li class="nav-item"><a class="nav-link" href="/clients">Clients</a></li>
                             {% endif %}
                         </ul>
@@ -59,7 +59,7 @@
             </header>
         {% endif %}
 
-        <main class="container-fluid py-5 text-center">
+        <main class="container-fluid py-5">
             {% block main %}{% endblock %}
         </main>
 

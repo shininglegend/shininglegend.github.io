@@ -16,6 +16,7 @@ CREATE TABLE IF NOT EXISTS codes (
         valid DATE
     );
 
+-- Latest version doesn't have time_updt
 CREATE TABLE IF NOT EXISTS journals (
         id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
         user_id INTEGER NOT NULL,
@@ -24,7 +25,7 @@ CREATE TABLE IF NOT EXISTS journals (
         response TEXT,
         time_crte TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
         time_updt TIMESTAMP,
-        time_resp TIMESTAMP,
+        time_resp TIMESTAMP, 
         submitted BOOLEAN DEFAULT 0,
         FOREIGN KEY (user_id) REFERENCES users(id),
         FOREIGN KEY (resp_id) REFERENCES users(id)
