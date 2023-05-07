@@ -2,6 +2,7 @@
 This is Titus Murphy's Final Project for CS-50. 
 [Here's a video intro!](https://youtu.be/sRbCkBJYrXc)
 [Here's the github!](https://github.com/shininglegend/shininglegend.github.io)
+(If any files seem missing, check the github.)
 
 The project is meant to be a mostly developed standalone web page used for clients to journal in and for the admins to be able to respond to the journals. It makes use of the following:
 - Python
