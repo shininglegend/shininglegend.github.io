@@ -17,3 +17,4 @@ TODO
     - clients page (2nd table)
     	testadmin@test.com	h7yfgd6h
         testadmin2@gmail.com	3zihloav
+    - Clients journals page (center rows)

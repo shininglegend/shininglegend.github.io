@@ -45,6 +45,9 @@ nav .navbar-brand {
     vertical-align: center;
 }
 
+/* .col { 
+    vertical-align: center;
+} TODO: MAKE THIS WORK */
 
 /* Error text */
 .error {

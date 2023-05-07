@@ -1,5 +1,6 @@
 # This background code written for the Inner Excellence Journaling project
 # Written by Titus Murphy. (c) 2023
+# The | e filter is for escaping (Built into flask)
 
 from babel.dates import format_datetime as fdtime
 from flask import render_template, request

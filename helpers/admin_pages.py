@@ -41,8 +41,14 @@ def add_client():
 @login_required
 @admin_required
 def client_journals():
-    journals_new = db.execute("SELECT * FROM JOURNALS WHERE submitted=1 AND response IS NULL AND content IS NOT NULL")
-    journals_old = db.execute("SELECT * FROM JOURNALS WHERE submitted=1 AND response IS NOT NULL AND content IS NOT NULL")
+    # Needed to specify what I get to avoid having 2 id columns
+    journals_new = db.execute("""SELECT journals.id, journals.time_crte, users.name, users.email, journals.content, journals.response FROM journals
+                              JOIN users ON journals.user_id = users.id 
+                              WHERE journals.submitted=1 AND journals.resp_sent=0 AND journals.content IS NOT NULL""")
+    journals_old = db.execute("""SELECT journals.id, journals.time_crte, users.name, users.email, journals.content, journals.response FROM journals
+                              JOIN users ON journals.user_id = users.id 
+                              WHERE journals.submitted=1 AND journals.resp_sent=1 AND journals.content IS NOT NULL""")
+    print(journals_new, journals_old)
     return render_template("client-journals.html", journals_new = journals_new, journals_old = journals_old)
 
 
@@ -54,18 +60,56 @@ def respond(post_id):
     # Review an individual Journal's page
     if request.method == "GET":
         # Check if the post belongs to them
-        content = db.execute("SELECT content FROM journals WHERE id=?", post_id)
+        journal = db.execute("SELECT content, response FROM journals WHERE id=?", post_id)
         # If that one doesn't exist, there won't be a match in the database.
-        if not content:
+        if not journal:
             flash("I couldn't locate that journal. Perhaps it was deleted?")
             return redirect('/client-journals')
         # Otherwise, send them either a prefilled one (if there is one) or the blank one
-        content = content[0]['content']
+        content = journal[0]['content']
+        response = journal[0]['response']
         # TODO: Send some info about the user (Beyond scope of project to be handed in)
-        return render_template("response.html", post_id = post_id, content = content)
+        return render_template("response.html", post_id = post_id, content = content, response = response)
     # Otherwise, save the entry.
     else:
-        pass
+        print(request.form)
+        form_button_name = 'submit_button'
+
+        # Check if there is one saved with that ID
+        draft = db.execute("SELECT * FROM journals WHERE id=?", post_id)
+        # If that one doesn't exist, there won't be a match in the database.
+        if not draft:
+            # They somehow went to one that doesn't exist.
+            flash("I couldn't locate that journal. Perhaps it was deleted?")
+            return redirect('/client-journals')
+        response = request.form['response']
+        content = draft[0]["content"]
+        
+        # Save a draft in the database
+        if request.form[form_button_name] == "saveDraftR":
+            # Save the draft
+            db.execute("UPDATE journals SET response=?, resp_id=?, resp_sent=0 WHERE id=?", response, session['user_id'], post_id)
+            flash("I saved your draft response!")
+            return render_template("response.html", post_id = post_id, content = content, response = response)
+        
+        # "Submit" the draft. 
+        elif request.form[form_button_name] == "sendResp":
+            # Submit it to the database
+            db.execute("UPDATE journals SET response=?, resp_id=?, resp_sent=1 WHERE id=?", response, session['user_id'], post_id)
+            # TODO: Add automatic email notifications (Beyond scope of project to be handed in)
+            flash("I sent your response!")
+            return render_template("response.html", post_id = post_id, content = content, response = response)
+        
+        elif request.form[form_button_name] == "deleteDraftR":
+            # Delete the draft
+            db.execute("UPDATE journals SET response=Null, resp_id=Null, resp_sent=0 WHERE id=?", post_id)
+            flash("I deleted your response.")
+            # TODO: Logs? (Beyond scope of project to be handed in)
+            return render_template("response.html", post_id = post_id, content = content)
+
+        else:
+            # If they modified the html or smthg, send them to rickroll as punishment.
+            return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
 
 
 # Clients page
@@ -73,7 +117,7 @@ def respond(post_id):
 @login_required
 @admin_required
 def clients():
-    # TODO: Add ability to remove clients
+    # TODO: Add ability to remove clients (Beyond scope of project to be handed in)
     admins = db.execute("SELECT * FROM users WHERE admin=1 ORDER BY joined")
     clients = db.execute("SELECT * FROM users WHERE admin=0 ORDER BY joined")
     new_clients = db.execute("SELECT * FROM codes WHERE valid IS NOT NULL")
