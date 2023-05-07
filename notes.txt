@@ -13,5 +13,7 @@ TODO (After submission)
 - Fix button on index page (doesn't work at all)
 
 - Fix css on:
-    	testadmin@test.com	h7yfgd6h
-        testadmin2@gmail.com	3zihloav
+
+Extra sample accounts:
+User - testadmin@test.com	h7yfgd6h 
+Admin - testadmin2@gmail.com	3zihloav
