@@ -13,5 +13,5 @@ TODO (After submission)
 - Show response for client at seperate page
 
 Extra sample accounts:
-User - testadmin@test.com	h7yfgd6h 
-Admin - testadmin2@gmail.com	3zihloav
+User - testuser2@test.com   z6647qep 
+Admin - testadmin2@gmail.com    3zihloav
