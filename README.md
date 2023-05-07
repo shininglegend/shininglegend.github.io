@@ -39,9 +39,9 @@ Requirements:
 - Pip
 
 ### Steps:
-1: Download and unzip all project files to a new folder. 
-2: [Create a new virtual enviroment](https://code.visualstudio.com/docs/python/environments)
-2.5: Activate said virtual enviroment. This varies per OS, check the guide linked above.
-3: Run `pip install -r requirements.txt` within the enviroment. 
-4: If no errors, run `flask run` (still within the venv) to start the server.
-5: Flask should give you a website by which my project ui can be accessed. 
+1) Download and unzip all project files to a new folder. 
+2) [Create a new virtual enviroment](https://code.visualstudio.com/docs/python/environments)
+3) Activate said virtual enviroment. This varies per OS, check the guide linked above.
+4) Run `pip install -r requirements.txt` within the enviroment. 
+5) If no errors, run `flask run` (still within the venv) to start the server.
+6) Flask should give you a website by which my project ui can be accessed. 
