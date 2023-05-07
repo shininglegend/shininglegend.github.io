@@ -67,14 +67,14 @@ def journals(post_id):
         elif request.form[form_button_name] == "pubAndSend":
             # Submit it to the database
             db.execute("UPDATE journals SET content=?, submitted=1 WHERE id=? AND user_id=?", content, post_id, session['user_id'])
-            # TODO: Add automatic email notifications (after the class perhaps)
+            # TODO: Add automatic email notifications (Beyond scope of project to be handed in)
             return render_template("journal.html", post_id = post_id, content = content, response = "Successfully submitted!")
         
         elif request.form[form_button_name] == "deleteDraft":
             # Delete the draft
             db.execute("DELETE FROM journals WHERE id=? AND user_id=?", post_id, session['user_id'])
             flash("I deleted your journal entry.")
-            # TODO: Logs? (after the class perhaps)
+            # TODO: Logs? (Beyond scope of project to be handed in)
             return redirect("/")
 
         else:

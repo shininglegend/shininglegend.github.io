@@ -1,4 +1,5 @@
 # These helper functions are defined here to make them easier to find
+# Written by Titus Murphy. (c) 2023
 from flask import redirect, session, render_template
 from functools import wraps
 

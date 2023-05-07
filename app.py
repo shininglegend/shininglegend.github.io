@@ -54,4 +54,5 @@ def page_not_found(error):
 # Handle annoying 500 errors
 @app.errorhandler(500)
 def server_error(error):
+    # Send email notifs of problems (Beyond scope of project to be handed in)
     return render_template('error.html', error=error), 500

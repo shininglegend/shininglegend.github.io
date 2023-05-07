@@ -61,7 +61,7 @@ def respond(post_id):
             return redirect('/client-journals')
         # Otherwise, send them either a prefilled one (if there is one) or the blank one
         content = content[0]['content']
-        # TODO: Send some info about the user (beyond scope of CS-50)
+        # TODO: Send some info about the user (Beyond scope of project to be handed in)
         return render_template("response.html", post_id = post_id, content = content)
     # Otherwise, save the entry.
     else:
