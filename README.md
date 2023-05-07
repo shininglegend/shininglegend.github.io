@@ -14,7 +14,9 @@ I also rely heavily on:
 The site is not meant to allow just anyone to register - users must have a key + email preregistered in the database by an admin before they can register. 
 The register page is located at [/register](http://127.0.0.1:5000/register) (details as to why in DESIGN.md)
 Here are 2 sample user accounts that can be registered and used to access the logged-in portions. (Emails are not currently validated.) Also note that admins still can submit their own journals (By design).
+
 Admin username: `admin@ixjournal.com` Password: `y4wdiuug`
+
 Client username: `user@ixjournal.com` Password: `ajuhghxl`
 
 Please note that while I often refer to sites by their direct address (like /clients), they should all be accessible via the navbar. 
