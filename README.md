@@ -12,7 +12,7 @@ I also rely heavily on:
 
 ## Usage:
 The site is not meant to allow just anyone to register - users must have a key + email preregistered in the database by an admin before they can register. 
-The register page is located at (/register)[http://127.0.0.1:5000/register] (details as to why in DESIGN.md)
+The register page is located at [/register](http://127.0.0.1:5000/register) (details as to why in DESIGN.md)
 Here are 2 sample user accounts that can be registered and used to access the logged-in portions. (Emails are not currently validated.) Also note that admins still can submit their own journals (By design).
 Admin username: `admin@ixjournal.com` Password: `y4wdiuug`
 Client username: `user@ixjournal.com` Password: `ajuhghxl`
@@ -38,7 +38,7 @@ Requirements:
 
 ### Steps:
 1: Download and unzip all project files to a new folder. 
-2: (Create a new virtual enviroment)[https://code.visualstudio.com/docs/python/environments]
+2: [Create a new virtual enviroment](https://code.visualstudio.com/docs/python/environments)
 2.5: Activate said virtual enviroment. This varies per OS, check the guide linked above.
 3: Run `pip install -r requirements.txt` within the enviroment. 
 4: If no errors, run `flask run` (still within the venv) to start the server.
