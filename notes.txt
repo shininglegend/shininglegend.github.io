@@ -9,10 +9,8 @@ Database tables (see tables.sql)
 
 TODO (After submission)
 - Fix wrapping for mobile on clients page
-
-- Fix button on index page (doesn't work at all)
-
-- Fix css on:
+- Account management page for clients
+- Show response for client at seperate page
 
 Extra sample accounts:
 User - testadmin@test.com	h7yfgd6h 
