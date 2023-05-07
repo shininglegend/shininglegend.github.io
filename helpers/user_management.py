@@ -9,7 +9,6 @@ from datetime import date, datetime
 from flask import flash, redirect, render_template, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
 
-
 from helpers.helpers import apology
 from init import app, db
 
@@ -110,6 +109,7 @@ def register():
         return redirect("/")
     else: 
         return render_template("register.html")
+    
     
 # This code checks A: whether a code is an admin code and B: whether it is valid
 def check(code, email):

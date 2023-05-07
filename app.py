@@ -2,10 +2,9 @@
 # Written by Titus Murphy. (c) 2023
 # The | e filter is for escaping (Built into flask)
 
-from babel.dates import format_datetime as fdtime
-from flask import render_template, request
+from flask import render_template
 from datetime import datetime
-# We import all the "helper functions" - stored at ./helpers/*
+# We import all the "helper functions" - stored at ./helpers/
 from helpers.helpers import *
 
 from helpers.admin_pages import *
@@ -39,7 +38,7 @@ def format_datetime(value, str="Created"):
     timeCreated = datetime.strptime(value, format)
     diff = currtime - timeCreated
     if diff.days <=1:
-        return f"{str} about {round(diff.seconds/3600, 2)} hour(s) ago."
+        return f"{str} less than a day ago."
     elif diff.days <= 30:
         return f"{str} about {diff.days} day(s) ago."
     else: 

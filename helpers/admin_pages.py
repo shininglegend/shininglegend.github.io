@@ -6,7 +6,7 @@ s = singular entry, m = multiple entries
 - (future) clients_list (m)
 - respond to journal (s)
 """
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import flash, redirect, render_template, request, session
 from datetime import date, timedelta
 from helpers.helpers import login_required, admin_required
 from init import app, db

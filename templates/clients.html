@@ -26,7 +26,7 @@
                         {% else %}
                             <td class="col"> No name provided. </td>
                         {% endif %}
-                        <td class="col"> {{ client.email }} </td>
+                        <td class="col email-wrap"> {{ client.email }} </td>
                         <td class="col"> N/A </td>
                         <td class="col"> {{ client.joined | format_datetime("Joined") }} </td>
                     </tr>
@@ -50,9 +50,9 @@
                 </thead>
                 <tbody>
                     {% for client in new_clients %}
-                        <tr> 
+                        <tr class="row"> 
                             <td class="col"> This client has not joined yet. </td>
-                            <td class="col"> {{ client.email }} </td>
+                            <td class="col email-wrap"> {{ client.email }} </td>
                             <td class="col"> {{ client.code }} </td>
                             <td class="col"> {% if client.admin == 0 %} No {% else %} Yes {% endif %} </td>
                             <td class="col"> {{ client.valid }} </td>
@@ -81,7 +81,7 @@
                         {% else %}
                             <td class="col"> No name provided. </td>
                         {% endif %}
-                        <td class="col"> {{ admin.email }} </td>
+                        <td class="col email-wrap"> {{ admin.email }} </td>
                         <td class="col"> N/A </td>
                         <td class="col"> {{ admin.joined | format_datetime("Joined") }} </td>
                     </tr>

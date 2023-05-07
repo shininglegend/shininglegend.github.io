@@ -53,6 +53,20 @@ nav .navbar-brand {
 .error {
     color:red;
 }
+/* Admin check styling */
+#check-admin {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+#check-admin .form-check-label {
+    padding: 2px 0 0 5px;
+    font-size: 15px;
+}
+
+/* Wrap emails */
+
 
 /* Response text */
 .response {
@@ -61,6 +75,10 @@ nav .navbar-brand {
 
 .red {
     color:red;
+}
+
+.row {
+    align-items: center;
 }
 
 .jbutton {

@@ -5,6 +5,7 @@ from functools import wraps
 
 from init import db
 
+
 def login_required(f):
     # Decorate routes to require login.
     # The Code for this is borrowed from finance
@@ -15,6 +16,7 @@ def login_required(f):
             return redirect("/login")
         return f(*args, **kwargs)
     return decorated_function
+
 
 def admin_required(f):
     # This checks for admin status
@@ -28,7 +30,8 @@ def admin_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-# If you done messed up! (This is temporary)
+
+# If you done messed up! (I try to use this as little as possible. It should not appear for the most part, even where it would've in finance.)
 def apology(message, code=400):
     """Render message as an apology to user."""
     def escape(s):

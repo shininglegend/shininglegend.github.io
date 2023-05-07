@@ -6,7 +6,7 @@ s = singular entry, m = multiple entries
 - view_journal (s)
 """
 
-from flask import Flask, redirect, render_template, request, session, url_for, flash
+from flask import redirect, render_template, request, session, url_for, flash
 
 from helpers.helpers import *
 from init import app, db
@@ -21,6 +21,7 @@ def index():
                        ORDER BY submitted, time_resp""", session['user_id'])
     return render_template("index.html", posts=posts)
 
+
 # Journalling page
 @app.route("/journal")
 @login_required
@@ -29,6 +30,7 @@ def journal():
     journal_id = db.execute("INSERT INTO journals (user_id) VALUES (?)", session.get("user_id"))
     # Send them to that journal
     return redirect(url_for('journals', post_id = journal_id))
+
 
 # Review an individual Journal's page
 @app.route("/journals/<int:post_id>", methods=["GET", "POST"])
