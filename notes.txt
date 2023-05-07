@@ -12,3 +12,11 @@ TODO
 - Move clients, client_journals, respond to admin_pages.py
 - Move index, new_entry, view_journal to journal_pages.py
 - Add functionality for others
+
+- Fix button on index page (doesn't work at all)
+
+- Fix css on:
+    - Add clients page (admin switch)
+    - clients page (2nd table)
+    	testadmin@test.com	h7yfgd6h
+        testadmin2@gmail.com	3zihloav

@@ -40,6 +40,12 @@ nav .navbar-brand {
     padding-right: 0.5%;
 }
 
+/* Admin checkbox */
+.admincheck {
+    vertical-align: center;
+}
+
+
 /* Error text */
 .error {
     color:red;
@@ -48,6 +54,10 @@ nav .navbar-brand {
 /* Response text */
 .response {
     color:grey;
+}
+
+.red {
+    color:red;
 }
 
 .jbutton {

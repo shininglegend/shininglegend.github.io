@@ -1,3 +1,4 @@
+# These helper functions are defined here to make them easier to find
 from flask import redirect, session, render_template
 from functools import wraps
 
@@ -40,12 +41,3 @@ def apology(message, code=400):
             s = s.replace(old, new)
         return s
     return render_template("apology.html", top=code, bottom=escape(message)), code
-
-# This code checks whether a code is an admin code and whether it is valid
-def check(code, email):
-    # TODO: Implement this properly!
-    return False, True
-
-# TODO: Generate and add a new random code
-def gencode(email):
-    pass

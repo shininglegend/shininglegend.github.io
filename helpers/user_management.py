@@ -5,11 +5,12 @@
 - (future) manage_account
 - register
 """
-
-from flask import redirect, render_template, request, session
+from datetime import date, datetime
+from flask import flash, redirect, render_template, request, session
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from helpers.helpers import apology, check
+
+from helpers.helpers import apology
 from init import app, db
 
 
@@ -74,10 +75,13 @@ def register():
             return render_template("register.html", error="One or more fields were not completed.")
 
         # Check their code and email
-        adminstatus, validity = check(request.form.get("email"), request.form.get("regkey"))
+        adminstatus, validity = check(request.form.get("regkey"), request.form.get("email"))
         if not validity:
-            return render_template("contact_us.html")
-        
+            flash("That code was invalid. Please contact us.")
+            return render_template("contact-us.html")
+        elif validity != True:
+            flash(f"That code has expired as of {validity}. Please contact us for a new one.")
+            return render_template("contact-us.html")
         # Add them to the database
         # Query database for username
         rows = db.execute("SELECT * FROM users WHERE email = ?", request.form.get("email"))
@@ -91,18 +95,14 @@ def register():
             return render_template("register.html", error="Those passwords do not match.")
         
         # Add the user to the database, hashing their password in the process
-        if not request.form.get("name"):
-            userid = db.execute("INSERT INTO users (admin, email, hash) VALUES (?, ?, ?)",
-                                adminstatus,
-                                request.form.get("email"),
-                                generate_password_hash(request.form.get("password")))
-        # If they actually provided a name
-        else:
-            userid = db.execute("INSERT INTO users (admin, name, email, hash) VALUES (?, ?, ?, ?)",
-                                adminstatus,
-                                request.form.get("name"),
-                                request.form.get("email"),
-                                generate_password_hash(request.form.get("password")))
+        userid = db.execute("INSERT INTO users (admin, name, email, hash) VALUES (?, ?, ?, ?)",
+                            adminstatus,
+                            request.form.get("name") if request.form.get("name") else None,
+                            request.form.get("email"),
+                            generate_password_hash(request.form.get("password")))
+
+        # Invalidate the code (as by setting date to null)
+        remcode(request.form.get("regkey"))
 
         # Log them in
         session["user_id"] = userid
@@ -110,3 +110,30 @@ def register():
         return redirect("/")
     else: 
         return render_template("register.html")
+    
+# This code checks A: whether a code is an admin code and B: whether it is valid
+def check(code, email):
+    # Query the database for the code
+    code_data = db.execute("SELECT * FROM codes WHERE email=? AND code=?", email.lower(), code.lower())
+    # Check if there is a matche, return invalid if not. 
+    # We return the same response if fake to avoid them being able to guess a code and an email seperatly, they need to get both right
+    if not code_data:
+        return False, False
+    if not code_data[0]["valid"]:
+        return False, False
+    # Check if expired
+    valid_until = code_data[0]["valid"]
+    if datetime.strptime(valid_until, '%Y-%m-%d').date() < date.today():
+        return False, valid_until
+    
+    # Check if it's an admin code
+    if code_data[0]["admin"] == 1:
+        return True, True
+    
+    # Otherwise, it's just a normal code.
+    return False, True
+
+
+# Invalidate the code in the database
+def remcode(code):
+    db.execute("UPDATE codes SET valid=NULL WHERE code=?", code)
