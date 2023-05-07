@@ -1,4 +1,4 @@
-Database tables
+Database tables (see tables.sql)
 - Journals (id, users, timestamp (entry + resp), entry, status)
 - Responses (id, users, timestamp, response, status)
 - Users (id, admin, name, email, date-joined, password_hash)
@@ -8,9 +8,6 @@ Database tables
 *- Books (id, title, type, isbn)
 
 TODO
-- Move register, login, logout, manage_account to user_management.py
-- Move clients, client_journals, respond to admin_pages.py
-- Move index, new_entry, view_journal to journal_pages.py
 - Add functionality for others
 
 - Fix button on index page (doesn't work at all)

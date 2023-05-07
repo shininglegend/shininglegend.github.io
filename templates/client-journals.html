@@ -15,7 +15,7 @@
                         <td class="col"> {{ journal.time_crte | format_datetime }} </td>
                     </tr>
                     <tr class="row">
-                        <td class="col"><a href={{ "/journals/" ~journal.id }}>Go to?</a></td>
+                        <td class="col"><a href={{ "/respond/" ~journal.id }}>Go to?</a></td>
                         <td class="col"> {{ journal.content | e }} </td>
                         <td class="col"><i>You haven't responded to this journal yet.</i></td>
                     </tr>
@@ -32,7 +32,7 @@
                         <td class="col"> {{ journal.time_crte | format_datetime }} </td>
                     </tr>
                     <tr class="row">
-                        <td class="col"><a href={{ "/journals/" ~journal.id }}>Go to?</a></td>
+                        <td class="col"><a href={{ "/respond/" ~journal.id }}>Go to?</a></td>
                         <td class="col"> {{ journal.content | e }} </td>
                         <td class="col"> {{ journal.response | e }} </td>
                     </tr>

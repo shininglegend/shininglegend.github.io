@@ -47,20 +47,25 @@ def client_journals():
 
 
 # TODO: Review an individual Journal's page
-@app.route("/respond/<int:post_id>")
+@app.route("/respond/<int:post_id>", methods=["GET", "POST"])
 @login_required
 @admin_required
 def respond(post_id):
-    return render_template("journals.html")
-
-
-# TODO: Response page
-@app.route("/response")
-@login_required
-@admin_required
-def response():
-    request.args.get("userid")
-    return render_template("response.html")
+    # Review an individual Journal's page
+    if request.method == "GET":
+        # Check if the post belongs to them
+        content = db.execute("SELECT content FROM journals WHERE id=?", post_id)
+        # If that one doesn't exist, there won't be a match in the database.
+        if not content:
+            flash("I couldn't locate that journal. Perhaps it was deleted?")
+            return redirect('/client-journals')
+        # Otherwise, send them either a prefilled one (if there is one) or the blank one
+        content = content[0]['content']
+        # TODO: Send some info about the user (beyond scope of CS-50)
+        return render_template("response.html", post_id = post_id, content = content)
+    # Otherwise, save the entry.
+    else:
+        pass
 
 
 # Clients page
