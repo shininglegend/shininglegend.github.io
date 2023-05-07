@@ -1,4 +1,4 @@
-## Scope/ Outcomes reached
+# Scope/ Outcomes reached
 This project met all but one of my "Better" outcomes (and tbh that one that I didn't hit should've been under "best" outcome). It also met one of my best outcomes (more secure login/registration), though the other two were not met. 
 
 ### Time breakdown
