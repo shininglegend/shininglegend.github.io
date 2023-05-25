@@ -6,6 +6,30 @@
 from cs50 import SQL
 from flask import Flask
 from flask_session import Session
+import logging
+
+# Create a custom logger
+logger = logging.getLogger(__name__)
+
+# Set the log level to DEBUG for this logger
+logger.setLevel(logging.DEBUG)
+
+# Create a file handler that logs debug and higher level messages to a file
+file_handler = logging.FileHandler('logs.txt')
+file_handler.setLevel(logging.DEBUG)
+
+# Create a console handler that logs info and higher level messages to the console
+console_handler = logging.StreamHandler()
+console_handler.setLevel(logging.INFO)
+
+# Create a formatter and set it for both handlers
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+file_handler.setFormatter(formatter)
+console_handler.setFormatter(formatter)
+
+# Add both handlers to the logger
+logger.addHandler(file_handler)
+logger.addHandler(console_handler)
 
 # Configure application
 app = Flask(__name__)

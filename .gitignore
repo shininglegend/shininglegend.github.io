@@ -11,3 +11,9 @@ project.zip
 # And the pycache
 __pycache__/
 helpers/__pycache__/
+
+# The logs
+logs.txts
+
+# And sendgrid
+sendgrid.env

@@ -10,6 +10,7 @@ from helpers.helpers import *
 from helpers.admin_pages import *
 from helpers.journal_pages import *
 from helpers.user_management import *
+from helpers.email_notifs import *
 
 # import the app/db in order to avoid circular imports
 from init import app
@@ -56,3 +57,8 @@ def page_not_found(error):
 def server_error(error):
     # Send email notifs of problems (Beyond scope of project to be handed in)
     return render_template('error.html', error=error), 500
+
+# Send an email to say the server started
+send_email('jvctext@gmail.com', "[INFO] Server Started", 
+           "Hey, this is just a message to indicated that the server has started.")
+#print("Sent init email.")

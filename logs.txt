@@ -1,0 +1,15 @@
+2023-05-25 16:00:28,872 - init - DEBUG - 202
+2023-05-25 16:00:28,873 - init - DEBUG - b''
+2023-05-25 16:00:28,873 - init - DEBUG - Server: nginx
+Date: Thu, 25 May 2023 22:00:28 GMT
+Content-Length: 0
+Connection: close
+X-Message-Id: EoU85SpTQn-hgm_Hla3Z5Q
+Access-Control-Allow-Origin: https://sendgrid.api-docs.io
+Access-Control-Allow-Methods: POST
+Access-Control-Allow-Headers: Authorization, Content-Type, On-behalf-of, x-sg-elas-acl
+Access-Control-Max-Age: 600
+X-No-CORS-Reason: https://sendgrid.com/docs/Classroom/Basics/API/cors.html
+Strict-Transport-Security: max-age=600; includeSubDomains
+
+
