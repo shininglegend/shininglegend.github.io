@@ -59,6 +59,6 @@ def server_error(error):
     return render_template('error.html', error=error), 500
 
 # Send an email to say the server started
-send_email('jvctext@gmail.com', "[INFO] Server Started", 
-           "Hey, this is just a message to indicated that the server has started.")
+#send_email('jvctext@gmail.com', "[INFO] Server Started", 
+#           "Hey, this is just a message to indicated that the server has started.")
 #print("Sent init email.")

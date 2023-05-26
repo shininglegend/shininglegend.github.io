@@ -9,8 +9,10 @@ s = singular entry, m = multiple entries
 from flask import flash, redirect, render_template, request, session
 from datetime import date, timedelta
 from helpers.helpers import login_required, admin_required
-from init import app, db
+
+from init import app, db, logger
 import secrets, string
+
 
 # Add a client (using gencode)
 @app.route("/add-client", methods=["GET", "POST"])
@@ -96,7 +98,7 @@ def respond(post_id):
         elif request.form[form_button_name] == "sendResp":
             # Submit it to the database
             db.execute("UPDATE journals SET response=?, resp_id=?, resp_sent=1 WHERE id=?", response, session['user_id'], post_id)
-            # TODO: Add automatic email notifications (Beyond scope of project to be handed in)
+            # TODO: Add automatic email notifications
             flash("I sent your response!")
             return render_template("response.html", post_id = post_id, content = content, response = response)
         
@@ -104,7 +106,8 @@ def respond(post_id):
             # Delete the draft
             db.execute("UPDATE journals SET response=Null, resp_id=Null, resp_sent=0 WHERE id=?", post_id)
             flash("I deleted your response.")
-            # TODO: Logs? (Beyond scope of project to be handed in)
+            # Log the deletion
+            logger.info(f"{session['user_id']} deleted the response for post #{post_id}. It said: \"{response}\"")
             return render_template("response.html", post_id = post_id, content = content)
 
         else:

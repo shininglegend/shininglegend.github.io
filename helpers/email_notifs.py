@@ -17,7 +17,7 @@ def send_email(to_email, type, body):
         from_email=SENDER_EMAIL,
         to_emails=to_email,
         subject=type,
-        plain_text_content=body)
+        html_content=body)
     try:
         sg = SendGridAPIClient(SENDGRID_API_KEY)
         response = sg.send(message)

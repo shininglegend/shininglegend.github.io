@@ -6,7 +6,7 @@
 
 {% block main %}
     <!-- Unresponded Section -->
-    <div class="section">
+    <div class="section journals">
         <h2>Client Posts</h2>
         <table class="table">
             <tbody>
@@ -15,7 +15,7 @@
                         <td class="col"> {{ journal.time_crte | format_datetime }} </td>
                     </tr>
                     <tr class="row">
-                        <td class="col"><a href={{ "/respond/" ~journal.id }}>Go to?</a></td>
+                        <td class="col goto"><a href={{ "/respond/" ~journal.id }}>Go to?</a></td>
                         {% if journal.name %}
                             <td class="col"> {{ journal.name }} </td>
                         {% else %}
@@ -43,7 +43,7 @@
                         <td class="col"> {{ journal.time_crte | format_datetime }} </td>
                     </tr>
                     <tr class="row">
-                        <td class="col"><a href={{ "/respond/" ~journal.id }}>Go to?</a></td>
+                        <td class="col goto"><a href={{ "/respond/" ~journal.id }}>Go to?</a></td>
                         {% if journal.name %}
                             <td class="col"> {{ journal.name }} </td>
                         {% else %}

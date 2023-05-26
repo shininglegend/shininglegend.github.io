@@ -9,8 +9,11 @@ s = singular entry, m = multiple entries
 from flask import redirect, render_template, request, session, url_for, flash
 
 from helpers.helpers import *
-from init import app, db
+from helpers.email_notifs import send_email
+from init import app, db, logger
 
+# TODO: Update admin list
+ADMIN_EMAILS = ['titus@innerexcellence.com']
 
 # Homepage
 @app.route("/")
@@ -69,14 +72,32 @@ def journals(post_id):
         elif request.form[form_button_name] == "pubAndSend":
             # Submit it to the database
             db.execute("UPDATE journals SET content=?, submitted=1 WHERE id=? AND user_id=?", content, post_id, session['user_id'])
-            # TODO: Add automatic email notifications (Beyond scope of project to be handed in)
-            return render_template("journal.html", post_id = post_id, content = content, response = "Successfully submitted!")
+            # Automatic email notifications
+            user_info = db.execute("SELECT * FROM users WHERE id=?", session['user_id'])
+            # Make the body of the email
+            if not user_info[0]["name"]:
+                name = user_info[0]['email']
+            else: 
+                name = f"{user_info[0]['name']} <i>({user_info[0]['email']})</i>"
+            content_html = content.replace('\n', '<br>')
+            email_content = f"""<h3>{name} submitted a new entry.</h3><hr>
+            <p>{content_html}</p><hr>
+            <i><a href="{url_for('respond', post_id = post_id, _external=True)}">You can access it here.</a></i>"""
+
+            # Send the email to all the admins of the site
+            for admin in ADMIN_EMAILS:
+                send_email(admin, "[INFO] New Entry", email_content)
+
+            # Send them back to their journal
+            flash("Successfully submitted!")
+            return render_template("journal.html", post_id = post_id, content = content)
         
         elif request.form[form_button_name] == "deleteDraft":
             # Delete the draft
             db.execute("DELETE FROM journals WHERE id=? AND user_id=?", post_id, session['user_id'])
             flash("I deleted your journal entry.")
-            # TODO: Logs? (Beyond scope of project to be handed in)
+            # Log the deletion
+            logger.info(f"{session['user_id']} deleted the post #{post_id}. It said: \"{content}\"")
             return redirect("/")
 
         else:
