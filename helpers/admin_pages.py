@@ -6,10 +6,10 @@ s = singular entry, m = multiple entries
 - (future) clients_list (m)
 - respond to journal (s)
 """
-from flask import flash, redirect, render_template, request, session
+from flask import flash, redirect, render_template, request, session, url_for
 from datetime import date, timedelta
 from helpers.helpers import login_required, admin_required
-
+from helpers.email_notifs import send_email
 from init import app, db, logger
 import secrets, string
 
@@ -32,7 +32,13 @@ def add_client():
         else:
             code = gencode(email, False)
             flash(f'{email} was successfully added. Code: {code}')
-        # Redirect the user to the clients list so they can find the code     
+        # Redirect the user to the clients list so they can find the code
+        email_content = f"""<h2>Welcome to Inner Excellence!</h2><hr>
+            <h3>We're so glad to have you journalling with us. Your custom registration code is:</h3>
+            <h2><u>{code}</u></h2><hr>
+            <p>Please visit <a href='{url_for('register', _external=True)}'>ixjournal.com/register</a> to register for your new account.</p><hr>
+            <p><i>Hint: You'll need to register using the code above and this email: {email}."""
+        send_email(email, "Inner Excellence Journalling Registration", email_content)     
         return redirect("/clients")
     else:
         return render_template("add_client.html")
@@ -54,7 +60,7 @@ def client_journals():
     return render_template("client-journals.html", journals_new = journals_new, journals_old = journals_old)
 
 
-# TODO: Review an individual Journal's page
+# Review an individual Journal's page
 @app.route("/respond/<int:post_id>", methods=["GET", "POST"])
 @login_required
 @admin_required
