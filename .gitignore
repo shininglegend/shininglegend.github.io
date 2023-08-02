@@ -1,0 +1,23 @@
+# The venv #
+.venv
+
+# nor the env
+.env
+
+# Also don't need to upload the session lol #
+flask_session
+# Don't upload the database! #
+journals.db
+
+# And the project.zip
+project.zip
+
+# And the pycache
+__pycache__/
+helpers/__pycache__/
+
+# The logs
+logs.txt
+
+# The font
+/static/defaultfont.otf

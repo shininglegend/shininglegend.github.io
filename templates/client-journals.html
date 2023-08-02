@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Client's Journals
+{% endblock %}
+
+{% block main %}
+    <!-- Unresponded Section -->
+    <div class="section journals">
+        <h2>Client Posts</h2>
+        <table class="table">
+            <tbody>
+                {% for journal in journals_new %}
+                    <tr class="row">
+                        <td class="col"> {{ journal.time_crte | format_datetime }} </td>
+                    </tr>
+                    <tr class="row">
+                        <td class="col goto"><a href={{ "/respond/" ~journal.id }}>Go to?</a></td>
+                        {% if journal.name %}
+                            <td class="col"> {{ journal.name }} </td>
+                        {% else %}
+                            <td class="col"> {{ journal.email }} </td>
+                        {% endif %}
+                        <td class="col"> {{ journal.content | e }} </td>
+                        <td class="col">
+                            {% if journal.response %}
+                                <i>Draft: {{ journal.response }} </i>
+                            {% else %}
+                                <i>You haven't responded to this journal yet.</i></td>
+                            {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <hr>
+        <h2>Already responded</h2>
+        <!-- Responded to Section -->
+        <table class="table">
+            <tbody>
+                {% for journal in journals_old %}
+                    <tr class="row">
+                        <td class="col"> {{ journal.time_crte | format_datetime }} </td>
+                    </tr>
+                    <tr class="row">
+                        <td class="col goto"><a href={{ "/respond/" ~journal.id }}>Go to?</a></td>
+                        {% if journal.name %}
+                            <td class="col"> {{ journal.name }} </td>
+                        {% else %}
+                            <td class="col"> {{ journal.email }} </td>
+                        {% endif %}
+                        <td class="col"> {{ journal.content | e }} </td>
+                        <td class="col"> {{ journal.response | e }} </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>    
+{% endblock %}

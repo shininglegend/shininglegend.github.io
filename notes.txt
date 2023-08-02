@@ -1,0 +1,17 @@
+Database tables (see tables.sql)
+- Journals (id, users, timestamp (entry + resp), entry, status)
+- Responses (id, users, timestamp, response, status)
+- Users (id, admin, name, email, date-joined, password_hash)
+- Codes (id, admin, code, email, validity)
+*- Clients (id, user-id, name)
+*- Books_sent (id, client_id, book_id, date)
+*- Books (id, title, type, isbn)
+
+TODO (After submission)
+- Fix wrapping for mobile on clients page
+- Account management page for clients
+- Show response for client at seperate page
+
+Extra sample accounts:
+User - testuser2@test.com   z6647qep 
+Admin - testadmin2@gmail.com    3zihloav

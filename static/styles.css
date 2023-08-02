@@ -1,0 +1,150 @@
+@font-face {
+    font-family: Termina;
+    src: url(defaultfont.otf);
+}
+
+body {
+    font-family: 'Termina', 'Times New Roman', serif;
+}
+
+.section {
+    padding-bottom: 1rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 0.5rem;
+}
+
+.form-control {
+    margin: 10px 0px
+}
+
+/* Journal css */
+.journal-area {
+    flex-wrap: wrap;
+}
+
+.journal {
+    overflow: auto;
+    background : none;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+/* For non-natively-focusable elements. For natively focusable elements */
+/* Use .visually-hidden:not(:focus):not(:active) */
+/* From: https://css-tricks.com/html-inputs-and-labels-a-love-story */
+.visually-hidden {
+    border-width: 0 !important;
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    height: 1px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: absolute !important;
+    white-space: nowrap !important;
+    width: 1px !important;
+  }
+
+/* Size for brand */
+nav .navbar-brand {
+    font-size: xx-large;
+    padding-right: 0.5%;
+}
+
+/* Admin checkbox */
+.admincheck {
+    vertical-align: center;
+}
+
+/* .col { 
+    vertical-align: center;
+} TODO: MAKE THIS WORK */
+
+/* Error text */
+.error {
+    color:red;
+}
+/* Admin check styling */
+#check-admin {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+#check-admin .form-check-label {
+    padding: 2px 0 0 5px;
+    font-size: 15px;
+}
+
+/* Wrap emails */
+
+
+/* Response text */
+.response {
+    color:grey;
+}
+
+.red {
+    color:red;
+}
+
+.row {
+    align-items: center;
+}
+
+.jbutton {
+    margin-bottom: 1.25rem;
+    background-color: #abb8c3;
+    color: #000000;
+}
+
+.jbutton:hover {
+    background-color: green;
+}
+
+/* Styling borrowed from birthday's pset css */
+table {
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+/* .table a
+{
+    display:block;
+    text-decoration:none;
+}
+
+table th,
+table td {
+    padding: 0.75rem; 
+} */
+
+.journals tbody tr:nth-of-type(even) {
+    background-color: #abb8c3;
+    border-radius: 0.25rem;
+    border-style: hidden;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.goto a {
+    background-color: #0f67b0;
+    color: #fff;
+    padding: 7px 5px 8px 5px;
+    border-radius: 2rem;
+}
+
+tbody, td, tfoot, th, thead, tr {
+    border-style: hidden;
+}
+
+.clients tbody {
+    border-radius: 0.25rem;
+    border-style: hidden;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.clients tbody tr:nth-of-type(even) {
+    background-color: rgb(209, 207, 207);
+}
+
+.clients tbody tr:nth-of-type(odd) {
+    background-color: rgb(229, 229, 229);
+}

@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Clients
+{% endblock %}
+
+{% block main %}
+    <div class="section clients">
+        <h2 class="text-center">List of Clients</h2>
+        <!-- Clients that have already joined -->
+        <h3>Clients</h3>
+        <table class="table">
+            <thead>
+                <tr class="row">
+                    <td class="col">Name</td>
+                    <td class="col">Email</td>
+                    <td class="col">Code</td>
+                    <td class="col">Joined</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for client in clients %}
+                    <tr class="row">
+                        {% if client.name %}
+                            <td class="col"> {{ client.name }} </td>
+                        {% else %}
+                            <td class="col"> No name provided. </td>
+                        {% endif %}
+                        <td class="col email-wrap"> {{ client.email }} </td>
+                        <td class="col"> N/A </td>
+                        <td class="col"> {{ client.joined | format_datetime("Joined") }} </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- New clients -->
+        {% if new_clients %}
+            <hr>
+            <h3>New clients</h3>
+            <table class="table">
+                <thead>
+                    <tr class="row">
+                        <td class="col">Name</td>
+                        <td class="col">Email</td>
+                        <td class="col">Code</td>
+                        <td class="col">Admin</td>
+                        <td class="col">Valid Until</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for client in new_clients %}
+                        <tr class="row"> 
+                            <td class="col"> This client has not joined yet. </td>
+                            <td class="col email-wrap"> {{ client.email }} </td>
+                            <td class="col"> {{ client.code }} </td>
+                            <td class="col"> {% if client.admin == 0 %} No {% else %} Yes {% endif %} </td>
+                            <td class="col"> {{ client.valid }} </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+        <hr>
+        <!-- Admins -->
+        <h3> Admins: </h3>
+        <table class="table">
+            <thead>
+                <tr class="row">
+                    <td class="col">Name</td>
+                    <td class="col">Email</td>
+                    <td class="col">Code</td>
+                    <td class="col">Joined</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for admin in admins %}
+                    <tr class="row">
+                        {% if admin.name %}
+                            <td class="col"> {{ admin.name }} </td>
+                        {% else %}
+                            <td class="col"> No name provided. </td>
+                        {% endif %}
+                        <td class="col email-wrap"> {{ admin.email }} </td>
+                        <td class="col"> N/A </td>
+                        <td class="col"> {{ admin.joined | format_datetime("Joined") }} </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

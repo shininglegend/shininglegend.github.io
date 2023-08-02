@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add Client
+{% endblock %}
+
+{% block main %}
+    <div class="container mb-3 text-center">
+        <form action="/add-client" method="post">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="newclientemail" name="newclientemail" placeholder="Email" type="email" required>
+            <div class="form-check form-switch mb-3 red" id="check-admin">
+                <input class="form-check-input admincheck" id="admincheck" name="admincheck" role="switch" value="" type="checkbox">
+                <label class="form-check-label" for="admincheck">Should this be an Admin account?</label>
+              </div>
+            <button class="btn btn-outline-secondary jbutton" type="submit">Add this client</button>
+        </form>
+    </div>
+{% endblock %}

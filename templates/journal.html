@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Journal
+{% endblock %}
+
+{% block main %}
+    <div class="text-center journal-area">
+        <h1>Welcome to the Journaling Area!</h1>
+        <p>Feel free to express thoughts, opinions, mindset, reactions, and more!</p>
+        <!-- input field with multiple lines. Perhaps a scrollbar?-->
+        <form action={{ "/journals/" ~ post_id }} method="post">
+            <div class="container">
+                <div class="mb-3">
+                    <label for="journal" aria-describedby="journal" class="visually-hidden">Journal here!</label>
+                    <!-- Apologies for the long line of html - but I have a lot of info to add! -->
+                    <textarea autocomplete="off" aria-label="Journal" class="form-control journal fs-3" placeholder="Journal here!" id="journal" name="journal" rows=13>{% if content %}{{ content }}{% endif %}</textarea>
+                </div>
+                <!-- Save Draft, Publish, Delete Draft Buttons -->
+                <div class="row g-3">
+                    <div class="col-lg">
+                        <button class="btn btn-outline-secondary" name="submit_button" value="saveDraft" type="submit">Save Draft</button>
+                    </div>
+                    <div class="col-lg">
+                        <button class="btn btn-outline-success" name="submit_button" value="pubAndSend" type="submit">Publish and Send</button>
+                    </div>
+                    <div class="col-lg">
+                        <button class="btn btn-outline-danger" name="submit_button" value="deleteDraft" type="submit">Delete Draft</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}
