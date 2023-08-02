@@ -21,3 +21,6 @@ logs.txt
 
 # The font
 /static/defaultfont.otf
+
+# Forgot vs code
+.vscode/
