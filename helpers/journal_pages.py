@@ -6,14 +6,21 @@ s = singular entry, m = multiple entries
 - view_journal (s)
 """
 
-from flask import redirect, render_template, request, session, url_for, flash
+from flask import redirect, render_template, request, session, url_for, flash, jsonify
 
 from helpers.helpers import *
 from helpers.email_notifs import send_email
-from init import app, db, logger
+from init import app, db, logger, production
 
 # TODO: Update admin list
 ADMIN_EMAILS = ['titus@innerexcellence.com']
+
+def save_draft(post_id, content):
+    # Save the draft
+    db.execute("UPDATE journals SET content=? WHERE id=? AND user_id=?", content, post_id, session['user_id'])
+    flash("I saved your draft!")
+    return render_template("journal.html", post_id = post_id, content = content)
+
 
 # Homepage
 @app.route("/")
@@ -64,9 +71,7 @@ def journals(post_id):
         # Save a draft in the database
         if request.form[form_button_name] == "saveDraft":
             # Save the draft
-            db.execute("UPDATE journals SET content=?, submitted=0 WHERE id=? AND user_id=?", content, post_id, session['user_id'])
-            flash("I saved your draft!")
-            return render_template("journal.html", post_id = post_id, content = content)
+            return save_draft(post_id, content)
         
         # "Submit" the draft. 
         elif request.form[form_button_name] == "pubAndSend":
@@ -82,11 +87,21 @@ def journals(post_id):
             content_html = content.replace('\n', '<br>')
             email_content = f"""<h3>{name} submitted a new entry.</h3><hr>
             <p>{content_html}</p><hr>
-            <i><a href="{url_for('respond', post_id = post_id, _external=True)}">You can access it here.</a></i>"""
+            <i><a href="{url_for('admin.respond', post_id = post_id, _external=True)}">You can access it here.</a></i>
+            <p>Thanks, the IX Journal Bot</p>
+            <hr>
+            <p><i>This is an automated message. Please do not reply to this email.</i></p>
+            <p><i>If you would like to unsubscribe from these emails, please click <a href="{url_for('unsubscribe', _external=True)}">here</a>.</i></p>"""
 
             # Send the email to all the admins of the site
             for admin in ADMIN_EMAILS:
-                send_email(admin, "[INFO] New Entry", email_content)
+                # Send if in production
+                if production:
+                    send_email(admin, "[INFO] New Entry", email_content)
+                # Otherwise, print it out
+                else:
+                    print(f"\"Sent\" email to {admin} with content: {email_content}")
+                
 
             # Send them back to their journal
             flash("Successfully submitted!")
@@ -103,3 +118,25 @@ def journals(post_id):
         else:
             # If they modified the html or smthg, send them to rickroll as punishment.
             return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+        
+
+@app.route("/journals/<post_id>/autosave", methods=["POST"])
+@login_required
+def autosave(post_id):
+    draft = db.execute("SELECT * FROM journals WHERE id=? AND user_id=?", post_id, session["user_id"])
+    print(draft)
+    # If that one doesn't exist, there won't be a match in the database.
+    if not draft:
+        # They somehow went to one that they don't own or doesn't exist.
+        return redirect('/journal')
+    # Get the data sent from the AJAX request
+    journal_content = request.form.get('journal')
+    # Save the content into database
+    save_draft(post_id, journal_content)
+    print(f"Saved draft for {session['user_id']} with content {journal_content}")
+    return jsonify(success=True)
+
+@app.route('/unsubscribe', methods=["GET", "POST"])
+def unsubscribe():
+        flash("This has not been implemented yet. Please contact titus@innerexcellence.com to unsubscribe.")
+        return redirect("/")

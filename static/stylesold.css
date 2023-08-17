@@ -1,93 +1,57 @@
-/* Fonts */
 @font-face {
     font-family: Termina;
     src: url(defaultfont.otf);
 }
+
 body {
     font-family: 'Termina', 'Times New Roman', serif;
 }
 
-/* Global styles */
 .section {
     padding-bottom: 1rem;
     padding-left: 2rem;
     padding-right: 2rem;
     padding-top: 0.5rem;
 }
+
 .form-control {
-    margin: 10px 0px;
-}
-.allcaps {
-    text-transform: uppercase;
-}
-.red {
-    color:red;
-}
-.row {
-    align-items: center;
+    margin: 10px 0px
 }
 
-.col {
-    border-style: hidden;
-}
-
-#page-container {
-    position: relative;
-    min-height: 93vh;
-  }
-  
-#content-wrap {
-    padding-bottom: 2.5rem;    /* Footer height */
-}
-
-#footer {
-    position: absolute;
-    bottom: 20px;
-    width: 100%;
-    height: 2.5rem;            /* Footer height */
-}
-
-/* Journal styles */
+/* Journal css */
 .journal-area {
     flex-wrap: wrap;
 }
+
 .journal {
     overflow: auto;
-    background: none;
+    background : none;
     font-family: 'Times New Roman', Times, serif;
-}
-.jbutton {
-    margin-bottom: 1.25rem;
-    background-color: #abb8c3;
-    color: #000000;
-}
-.jbutton:hover {
-    background-color: green;
-}
-.journals tbody tr:nth-of-type(even) {
-    background-color: #abb8c3;
-    border-radius: 0.25rem;
-    border-style: hidden;
-    font-family: 'Times New Roman', Times, serif;
-}
-#save-indicator {
-    font-size: 0.85rem;
-    margin-bottom: 0.85rem;
 }
 
-/* Navigation styles */
+/* All caps for the navbar */
+.allcaps {
+    text-transform: uppercase;
+}
+
+
+
+/* Size for brand */
 nav .navbar-brand {
     font-size: 16px;
     padding-right: 0.5%;
 }
+
 nav .nav-link {
     font-size: 24px;
 }
+
 @media (min-width: 992px) {
     .navbar-nav.custom-nav {
         justify-content: flex-end;
     }
 }
+
 @media (max-width: 992px) {
     .navbar-nav.custom-nav {
         justify-content: center;
@@ -95,13 +59,21 @@ nav .nav-link {
     }
 }
 
-/* Admin styles */
+
+/* Admin checkbox */
 .admincheck {
     vertical-align: center;
 }
+
+/* .col { 
+    vertical-align: center;
+} TODO: MAKE THIS WORK */
+
+/* Error text */
 .error {
-    color: red;
+    color:red;
 }
+/* Admin check styling */
 #check-admin {
     display: flex;
     flex-direction: row;
@@ -113,33 +85,93 @@ nav .nav-link {
     font-size: 15px;
 }
 
-/* Other styles */
-.response {
-    color: grey;
+#save-indicator {
+    font-size: 0.85rem;
+    margin-bottom: 0.85rem;
 }
+/* Wrap emails */
+
+
+/* Response text */
+.response {
+    color:grey;
+}
+
+.red {
+    color:red;
+}
+
+.row {
+    align-items: center;
+}
+
+.jbutton {
+    margin-bottom: 1.25rem;
+    background-color: #abb8c3;
+    color: #000000;
+}
+
+.jbutton:hover {
+    background-color: green;
+}
+
+/* Styling borrowed from birthday's pset css */
+table {
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+/* .table a
+{
+    display:block;
+    text-decoration:none;
+}
+
+table th,
+table td {
+    padding: 0.75rem; 
+} */
+
+.journals tbody tr:nth-of-type(even) {
+    background-color: #abb8c3;
+    border-radius: 0.25rem;
+    border-style: hidden;
+    font-family: 'Times New Roman', Times, serif;
+}
+
 .goto a {
     background-color: #0f67b0;
     color: #fff;
     padding: 7px 5px 8px 5px;
     border-radius: 2rem;
 }
+
+tbody, td, tfoot, th, thead, tr {
+    border-style: hidden;
+}
+
 .clients tbody {
     border-radius: 0.25rem;
     border-style: hidden;
     font-family: 'Times New Roman', Times, serif;
 }
+
 .clients tbody:hover .row {
     background-color: #f0f0f0; /* Or any other highlight color */
     cursor: pointer;
 }
+
 .clients tbody tr:nth-of-type(even) {
     background-color: rgb(209, 207, 207);
 }
+
 .clients tbody tr:nth-of-type(odd) {
     background-color: rgb(229, 229, 229);
 }
 
-/* Accessibility styles */
+/* For non-natively-focusable elements. For natively focusable elements */
+/* Use .visually-hidden:not(:focus):not(:active) */
+/* From: https://css-tricks.com/html-inputs-and-labels-a-love-story */
 .visually-hidden {
     border-width: 0 !important;
     clip: rect(1px, 1px, 1px, 1px) !important;
@@ -149,4 +181,4 @@ nav .nav-link {
     position: absolute !important;
     white-space: nowrap !important;
     width: 1px !important;
-}
+  }

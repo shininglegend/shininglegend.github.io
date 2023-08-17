@@ -6,16 +6,18 @@ s = singular entry, m = multiple entries
 - (future) clients_list (m)
 - respond to journal (s)
 """
-from flask import flash, redirect, render_template, request, session, url_for
+from flask import flash, redirect, render_template, request, session, url_for, Blueprint
 from datetime import date, timedelta
 from helpers.helpers import login_required, admin_required
 from helpers.email_notifs import send_email
 from init import app, db, logger
 import secrets, string
 
+# Make an admin blueprint
+admin = Blueprint('admin', __name__, url_prefix='/admin')
 
 # Add a client (using gencode)
-@app.route("/add-client", methods=["GET", "POST"])
+@admin.route("/add-client", methods=["GET", "POST"])
 @login_required
 @admin_required
 def add_client():
@@ -45,7 +47,7 @@ def add_client():
 
 
 # View Client's journals
-@app.route("/client-journals")
+@admin.route("/client-journals")
 @login_required
 @admin_required
 def client_journals():
@@ -61,10 +63,11 @@ def client_journals():
 
 
 # Review an individual Journal's page
-@app.route("/respond/<int:post_id>", methods=["GET", "POST"])
+@admin.route("/respond/<int:post_id>", methods=["GET", "POST"])
 @login_required
 @admin_required
 def respond(post_id):
+    print("Sending to response.html")
     # Review an individual Journal's page
     if request.method == "GET":
         # Check if the post belongs to them
@@ -122,7 +125,7 @@ def respond(post_id):
 
 
 # Clients page
-@app.route("/clients")
+@admin.route("/clients")
 @login_required
 @admin_required
 def clients():

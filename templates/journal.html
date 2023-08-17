@@ -14,8 +14,10 @@
                 <div class="mb-3">
                     <label for="journal" aria-describedby="journal" class="visually-hidden">Journal here!</label>
                     <!-- Apologies for the long line of html - but I have a lot of info to add! -->
-                    <textarea autocomplete="off" aria-label="Journal" class="form-control journal fs-3" placeholder="Journal here!" id="journal" name="journal" rows=13>{% if content %}{{ content }}{% endif %}</textarea>
+                    <textarea autocomplete="off" aria-label="Journal" class="form-control journal fs-3" data-post-id="{{ post_id }}" placeholder="Journal here!" id="journal" name="journal" rows=13>{% if content %}{{ content }}{% endif %}</textarea>
                 </div>
+                <!-- Save Indicator -->
+                <div id="save-indicator" class="text-center mt-2"></div>
                 <!-- Save Draft, Publish, Delete Draft Buttons -->
                 <div class="row g-3">
                     <div class="col-lg">

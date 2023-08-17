@@ -21,7 +21,7 @@
                     name="journal" rows=13> {% if content %}{{ content }}{% endif %} </textarea>
                     <!-- https://stackoverflow.com/questions/27451693/display-two-fields-side-by-side-in-a-bootstrap-form -->
                     <label for="response" aria-describedby="response" class="visually-hidden">Respond here!</label>
-                    <textarea aria-label="Respond" class="form-control journal fs-3" id="response" 
+                    <textarea aria-label="Respond" class="form-control journal fs-3" data-post-id="{{ post_id }}" id="response" 
                     name="response" placeholder="Respond to the journal!" rows=13> {% if response %}{{ response }}{% endif %} </textarea>
                 </div>
                 <!-- Save Draft, Publish, Delete Draft Buttons -->
@@ -36,6 +36,8 @@
                         <button class="btn btn-outline-danger" name="submit_button" value="deleteDraftR" type="submit">Delete Draft</button>
                     </div>
                 </div>
+                <!-- Show draft Saved -->
+                <span id="draft-saved" style="display: none;">Draft Saved!</span>
             </div>
         </form>
     </div>

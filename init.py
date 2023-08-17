@@ -37,7 +37,12 @@ app = Flask(__name__)
 # Configure session to use filesystem (instead of signed cookies)
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
+# NOTE: This is for development only
+#app.config["DEBUG"] = True 
 Session(app)
 
 # Configure CS50 Library to use SQLite database
 db = SQL("sqlite:///journals.db")
+
+# Define if the app is in production or not
+production = False

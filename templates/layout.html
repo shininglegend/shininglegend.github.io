@@ -14,6 +14,7 @@
         <!-- https://favicon.io/emoji-favicons/money-bag/ -->
         <link href="/static/favicon.ico" rel="icon">
         <link href="/static/styles.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="/static/scripts.js"></script>
 
         <title>IX Journal: {% block title %}{% endblock %}</title>
@@ -21,29 +22,39 @@
     </head>
 
     <body>
-
-        <nav class="bg-light border navbar navbar-expand-md navbar-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="/"><span class="blue">Inner Excellence Journaling</span></a>
+        <nav class="bg-light border navbar navbar-expand-xl navbar-light" id="mainNavBar">
+            <div class="container-fluid allcaps">
+                <a class="navbar-brand" href="/"><span class="blue">Inner Excellence&#174; Journal</span></a>
                 <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbar" data-bs-toggle="collapse" type="button">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbar">
                     {% if session["user_id"] %}
-                        <ul class="navbar-nav me-auto mt-2 justify-content-end">
-                            <li class="nav-item"><a class="nav-link" href="/">Your Journals</a></li>
-                            <li class="nav-item"><a class="nav-link" href="/journal">New Entry</a></li>
-                            {% if session["admin"] %}
-                                <li class="nav-item"><a class="nav-link" href="/client-journals">Client Journals</a></li>
-                                <li class="nav-item"><a class="nav-link" href="/clients">Clients</a></li>
-                                <li class="nav-item"><a class="nav-link" href="/add-client">Add Client</a></li>
-                            {% endif %}
-                        </ul>
-                        <ul class="navbar-nav ms-auto mt-2">
+                        {% if session["admin"] and request.path.startswith('/admin') %}
+                            <!-- Admin navigation bar -->
+                            <ul class="navbar-nav custom-nav ms-auto mt-2">
+                                <li class="nav-item"><a class="nav-link" href="/admin/client-journals">View Journals</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/admin/clients">Manage Clients</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/admin/add-client">Add Client</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/">Back to Client View</a></li>
+                            </ul>
+                        {% else %}
+                            <!-- User navigation bar -->
+                            <ul class="navbar-nav custom-nav ms-auto mt-2">
+                                <li class="nav-item"><a class="nav-link" href="/">Your Journals</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/journal">New Entry</a></li>
+                                <li class="nav-item"><a class="nav-link" ref="innerexcellence.com/newsletter">Newsletter</a></li>
+                                {% if session["admin"] %}
+                                    <!-- Link to admin home --> 
+                                    <li class="nav-item"><a class="nav-link" href="/admin/client-journals">Admin View</a></li> 
+                                {% endif %}
+                            </ul>
+                        {% endif %}
+                        <ul class="navbar-nav custom-nav ms-auto mt-2">
                             <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
                         </ul>
                     {% else %}
-                        <ul class="navbar-nav ms-auto mt-2">
+                        <ul class="navbar-nav custom-nav ms-auto mt-2">
                             <li class="nav-item"><a class="nav-link" href="/contact-us">Contact Us</a></li>
                             <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
                         </ul>
@@ -59,15 +70,26 @@
                 </div>
             </header>
         {% endif %}
-
-        <main class="container-fluid py-5">
-            {% block main %}{% endblock %}
-        </main>
-
-        <footer class="mb-5 small text-center text-muted">
-            Bored? You could be reading the <a href="https://innerexcellence.com/newsletter/">latest newsletters!</a>
-        </footer>
-
+        <div id="page-container">
+            <div id="content-wrap">
+                <main class="container-fluid py-5">
+                    {% block main %}{% endblock %}
+                </main>
+            </div>
+            <footer class="mb-5 small text-center text-muted" id="footer">
+                {% if session["user_id"] %}
+                    <p>Want inspiration? Read the <a href="https://innerexcellence.com/newsletter/">latest IX newsletters!</a></p>
+                {% endif %}
+                <hr>
+                <div class="container">
+                    <p>
+                        &copy; 2023 Inner Excellence. All Rights Reserved.
+                        <br>
+                        Use of this website constitutes acceptance of our <a href="/privacy-policy">Privacy Policy</a>.
+                    </p>
+                </div>
+            </footer>
+        </div>
     </body>
 
 </html>

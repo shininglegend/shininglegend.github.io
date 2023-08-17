@@ -31,3 +31,13 @@ CREATE TABLE IF NOT EXISTS journals (
         FOREIGN KEY (user_id) REFERENCES users(id),
         FOREIGN KEY (resp_id) REFERENCES users(id)
 );
+
+-- Email preferences (id, email, responses, journals, admin)
+CREATE TABLE IF NOT EXISTS email_preferences (
+        id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+        user_id INTEGER NOT NULL,
+        email TEXT UNIQUE NOT NULL,
+        responses BOOLEAN DEFAULT 1 NOT NULL,
+        journals BOOLEAN DEFAULT 1 NOT NULL,
+        admin BOOLEAN DEFAULT 0 NOT NULL
+    );
