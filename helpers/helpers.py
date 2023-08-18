@@ -31,7 +31,7 @@ def admin_required(f):
     return decorated_function
 
 
-# If you done messed up! (I try to use this as little as possible. It should not appear for the most part, even where it would've in finance.)
+# If you done messed up! (I try to use this as little as possible. It should not appear for the most part.)
 def apology(message, code=400):
     """Render message as an apology to user."""
     def escape(s):

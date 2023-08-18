@@ -24,20 +24,17 @@
                     <textarea aria-label="Respond" class="form-control journal fs-3" data-post-id="{{ post_id }}" id="response" 
                     name="response" placeholder="Respond to the journal!" rows=13> {% if response %}{{ response }}{% endif %} </textarea>
                 </div>
+                <!-- Save Indicator -->
+                <div id="save-indicator" class="text-center mt-2"></div>
                 <!-- Save Draft, Publish, Delete Draft Buttons -->
-                <div class="row g-3">
-                    <div class="col-lg">
-                        <button class="btn btn-outline-secondary" name="submit_button" value="saveDraftR" type="submit">Save Draft</button>
-                    </div>
+                <div class="row g-2">
                     <div class="col-lg">
                         <button class="btn btn-outline-success" name="submit_button" value="sendResp" type="submit">Send Response</button>
                     </div>
                     <div class="col-lg">
-                        <button class="btn btn-outline-danger" name="submit_button" value="deleteDraftR" type="submit">Delete Draft</button>
+                        <button class="btn btn-outline-danger" name="submit_button" value="deleteDraftR" type="submit">Delete Response</button>
                     </div>
                 </div>
-                <!-- Show draft Saved -->
-                <span id="draft-saved" style="display: none;">Draft Saved!</span>
             </div>
         </form>
     </div>

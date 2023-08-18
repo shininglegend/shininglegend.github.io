@@ -80,18 +80,23 @@ nav .navbar-brand {
     font-size: 16px;
     padding-right: 0.5%;
 }
-nav .nav-link {
-    font-size: 24px;
-}
-@media (min-width: 992px) {
+
+@media (min-width: 1199px) {
     .navbar-nav.custom-nav {
         justify-content: flex-end;
     }
+    nav .nav-link {
+        font-size: 14px;
+    }
 }
-@media (max-width: 992px) {
+/* Expanded */
+@media (max-width: 1199px) {
     .navbar-nav.custom-nav {
         justify-content: center;
         text-align: center;
+    }
+    nav .nav-link {
+        font-size: 24px;
     }
 }
 

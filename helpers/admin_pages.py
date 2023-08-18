@@ -6,7 +6,7 @@ s = singular entry, m = multiple entries
 - (future) clients_list (m)
 - respond to journal (s)
 """
-from flask import flash, redirect, render_template, request, session, url_for, Blueprint
+from flask import flash, redirect, render_template, request, session, url_for, Blueprint, jsonify
 from datetime import date, timedelta
 from helpers.helpers import login_required, admin_required
 from helpers.email_notifs import send_email
@@ -24,7 +24,7 @@ def add_client():
     if request.method == "POST":
         email = request.form["newclientemail"].lower()
         if not email:
-            flash("Something went wrong. Please contact IT support. FormNotFilled")
+            flash("Something went wrong. Form Not Filled. Contact support if this keeps happening.")
             return redirect("/")
         # Admin
         print(request.form.getlist("admincheck"))
@@ -156,3 +156,20 @@ def gencode(email, admin):
     db.execute("INSERT INTO codes (email, code, valid, admin) VALUES (?, ?, ?, ?)",
                email, code, validity, 0 if admin != True else 1)
     return code
+
+# Response Autosave
+@admin.route("/respond/<int:post_id>/autosave", methods=["POST"])
+@login_required
+@admin_required
+def admin_autosave(post_id):
+    draft = db.execute("SELECT * FROM journals WHERE id=?", post_id)
+    # If that one doesn't exist, there won't be a match in the database.
+    if not draft:
+        # They somehow went to one that doesn't exist.
+        return redirect(url_for('admin.client_journals'))
+    # Get the data sent from the AJAX request
+    response = request.form.get('content')
+    # Save a draft in the database
+    db.execute("UPDATE journals SET response=?, resp_id=? WHERE id=?", response, session['user_id'], post_id)
+    print(f"Saved draft {post_id} for {session['user_id']} with content {response}")
+    return jsonify(success=True)

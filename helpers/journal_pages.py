@@ -18,7 +18,6 @@ ADMIN_EMAILS = ['titus@innerexcellence.com']
 def save_draft(post_id, content):
     # Save the draft
     db.execute("UPDATE journals SET content=? WHERE id=? AND user_id=?", content, post_id, session['user_id'])
-    flash("I saved your draft!")
     return render_template("journal.html", post_id = post_id, content = content)
 
 
@@ -68,13 +67,13 @@ def journals(post_id):
             return redirect('/journal')
         content = request.form['journal']
         
-        # Save a draft in the database
-        if request.form[form_button_name] == "saveDraft":
-            # Save the draft
-            return save_draft(post_id, content)
+        # Save a draft in the database (discontinued in v0.8)
+        # if request.form[form_button_name] == "saveDraft":
+        #     # Save the draft
+        #     return save_draft(post_id, content)
         
         # "Submit" the draft. 
-        elif request.form[form_button_name] == "pubAndSend":
+        if request.form[form_button_name] == "pubAndSend":
             # Submit it to the database
             db.execute("UPDATE journals SET content=?, submitted=1 WHERE id=? AND user_id=?", content, post_id, session['user_id'])
             # Automatic email notifications
@@ -130,7 +129,7 @@ def autosave(post_id):
         # They somehow went to one that they don't own or doesn't exist.
         return redirect('/journal')
     # Get the data sent from the AJAX request
-    journal_content = request.form.get('journal')
+    journal_content = request.form.get('content')
     # Save the content into database
     save_draft(post_id, journal_content)
     print(f"Saved draft for {session['user_id']} with content {journal_content}")

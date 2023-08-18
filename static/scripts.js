@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 localStorage.setItem(currentPage + '-draft', textarea.value); // Save to localStorage
                 saveDraft();
             }
-        }, 5000);
+        }, 2500);
     }
 
     // Function to save draft
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             credentials: 'same-origin', // include, same-origin, *omit
-            body: `journal=${encodeURIComponent(textarea.value)}`
+            body: `content=${encodeURIComponent(textarea.value)}`
         }).then(function() { // Removed 'data' from the function parameters as it wasn't being used
             localStorage.removeItem(currentPage + '-draft'); // Clear from localStorage using the correct key after successful server save
             // Update the save indicator

@@ -19,10 +19,6 @@ The register page is located at [/register](http://127.0.0.1:5000/register) (det
 Here are 2 sample user accounts that have not but will work to register and use to access the logged-in portions. 
 (Emails are not currently validated, so don't worry about accessing the emails themselves.) 
 
-Admin username: `admin@ixjournal.com` Registration code: `y4wdiuug`
-
-Client username: `user@ixjournal.com` Registration code: `ajuhghxl`
-
 *There are also two more in notes.txt that have been registered, if the ones above fail to register.*
 
 Please note that while I often refer to sites by their direct address (like /clients), they should all be accessible via the navbar. 
