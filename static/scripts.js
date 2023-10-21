@@ -1,4 +1,4 @@
-// Coming soon! Maybe? (Beyond scope of project to be handed in)
+// Random js scripts for the site
 
 // // Hide the navbar on admin pages
 // $(document).ready(function() {
