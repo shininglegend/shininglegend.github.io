@@ -3,7 +3,7 @@
 import os
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
-from flask import render_template, request
+from flask import render_template, request, flash
 from helpers.helpers import *
 from init import logger, app, db
 
@@ -14,8 +14,10 @@ if not SENDGRID_API_KEY:
 SENDER_EMAIL = 'titus@innerexcellence.com'
 
 def send_email(to_email, type, body):
+    # Append a notice to the end of the body to indicate that this email was sent by an automated system from ixjournals.com
+    body += "<hr><p>This email was sent by an automated system from ixjournal.com. If you recieved this email in error, please let us know by replying to this email.</p>"
     message = Mail(
-        from_email=SENDER_EMAIL,
+        from_email=(SENDER_EMAIL, "IX Journal Notifications"),
         to_emails=to_email,
         subject=type,
         html_content=body)
@@ -46,4 +48,5 @@ def email_preferences():
             return render_template("email-preferences.html", preferences=preferences)
     else:
         # Check which ones are selected
-        pass
+        flash("Not implemented yet.")
+        return redirect('/')

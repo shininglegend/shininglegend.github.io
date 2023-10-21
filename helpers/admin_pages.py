@@ -137,24 +137,37 @@ def clients():
 
 
 # Generate and add a new random code
-def gencode(email, admin):
+def gencode(email, admin, type="register"):
+    print(email, admin, type)
     # Check if one exists already
     old_data = db.execute("SELECT * FROM codes WHERE email=?", email)
     if old_data:
-        # Check if it is invalid (versus expired)
-        if not old_data[0]["valid"]:
-            return 
-    # Generate a code (from https://docs.python.org/3/library/secrets.html)
-    while True:
-        code = ''.join(secrets.choice(string.ascii_lowercase + string.digits) for i in range(8))
-        # Make sure it's unique
-        if not db.execute("SELECT * FROM codes WHERE code=?", code):
-            break
+        # Print a message to the log internally and wipe old codes
+        print(f"Old code for {email} was wiped. It was {old_data[0]}")
+        logger.info(f"Old code for {email} was wiped. It was {old_data[0]}")
+        db.execute("DELETE FROM codes WHERE email=?", email)
+    # Registration codes: 8 characters, valid for 26 weeks
+    if type == "register":
+        codelen = 8
+        valid_for = timedelta(weeks=26)
+        # Generate a code (from https://docs.python.org/3/library/secrets.html)
+        while True:
+            code = ''.join(secrets.choice(string.ascii_lowercase + string.digits) for i in range(codelen))
+            # Make sure it's unique
+            if not db.execute("SELECT * FROM codes WHERE code=?", code):
+                break
+
+    # Reset codes: url-safe token, valid for 1 hour
+    else:
+        code = secrets.token_urlsafe().lower()
+        valid_for = timedelta(hours=1)
+        print(code, " is the code")
     # Add a hashed version to the database, including their email
-    validity = date.today() + timedelta(weeks=26)
+    validity = date.today() + valid_for
     print(validity)
     db.execute("INSERT INTO codes (email, code, valid, admin) VALUES (?, ?, ?, ?)",
                email, code, validity, 0 if admin != True else 1)
+    print(code)
     return code
 
 # Response Autosave

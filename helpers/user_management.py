@@ -5,12 +5,20 @@
 - (future) manage_account
 - register
 """
-from datetime import date, datetime
-from flask import flash, redirect, render_template, request, session
+from datetime import date, datetime, timedelta
+from flask import flash, redirect, render_template, request, session, url_for, get_flashed_messages
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from helpers.helpers import apology, login_required
+from helpers.email_notifs import send_email
+from helpers.admin_pages import gencode
 from init import app, db
+
+
+# Dictionary to store email cooldowns
+cooldowns = {}
+cooldown_duration = 300 # 5 minutes
+reset_duration = 1800  # 30 minutes
 
 
 # Login page (stolen from my finance pset but like it was so well written :) 
@@ -18,15 +26,21 @@ from init import app, db
 def login():
     """Log user in"""
 
-    # Forget any user_id
+    # Preserve flashed messages
+    flashed_messages = session.get('_flashes', [])
+
+    # Clear the session
     session.clear()
+
+    # Restore flashed messages
+    session['_flashes'] = flashed_messages
 
     # User reached route via POST (as by submitting a form via POST)
     if request.method == "POST":
 
         # Ensure username was submitted
         if not request.form.get("username"):
-            return apology("must provide email", 400)
+            return apology("must provide email.", 400)
 
         # Ensure password was submitted
         elif not request.form.get("password"):
@@ -37,7 +51,8 @@ def login():
 
         # Ensure username exists and password is correct
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
-            return apology("invalid username and/or password", 400)
+            flash("Invalid username and/or password.")
+            return render_template("login.html")
 
         # Remember which user has logged in
         session["user_id"] = rows[0]["id"]
@@ -163,3 +178,86 @@ def check(code, email):
 def remcode(code):
     db.execute("UPDATE codes SET valid=NULL WHERE code=?", code)
 
+
+@app.route('/forgot-password', methods=['GET', 'POST'])
+def forgot_password():
+    if request.method == 'POST':
+        #print("Received POST request on forgot-password.")
+        email = request.form['email']
+
+        # Check cooldown for requesting reset links
+        last_request_time = cooldowns.get(email, {}).get('last_request_time', None)
+        if last_request_time:
+            if datetime.now() - last_request_time < timedelta(seconds=cooldown_duration):
+                flash("You need to wait before requesting another password reset.")
+                return redirect(url_for('forgot_password'))
+        
+        # Check cooldown for sending reset links
+        last_send_time = cooldowns.get(email, {}).get('last_send_time', None)
+        if last_send_time:
+            if datetime.now() - last_send_time < timedelta(seconds=reset_duration):
+                flash("A reset link has already been sent. Please check your email.")
+                return redirect(url_for('login'))
+
+        # Check if their email exists in the database, if not, only pretend something happened
+        user = db.execute("SELECT * FROM users WHERE email=?", email)
+        if not user:
+            flash("If your email is in our database, a reset link has been sent to your email.")
+            return redirect(url_for('login'))
+        # Send reset password link
+        print("User exists.")
+        reset_code = gencode(email, False, "reset")
+        print(reset_code)
+        body = f'''
+            <h2>Hello! Someone requested a password reset for {email}.</h2><hr>
+            If it was you, click <a href="{url_for('reset_password', token=reset_code, _external=True)}">here</a> to reset your password.<br>
+            Or copy and paste the following link into your browser:<br>
+            {url_for('reset_password', token=reset_code, _external=True)}<br>
+            <strong>Please note that all previous links have been invalidated.</strong>
+        '''
+        # Make a custom timestamp per hour to ensure a new thread is created
+        send_email(email, f"Password Reset for IX Journals", body)
+
+        # Update cooldowns
+        cooldowns[email] = {
+            'last_request_time': datetime.now(),
+            'last_send_time': datetime.now()
+        }
+
+        flash("If your email is in our database, a reset link has been sent to your email.")
+        return redirect(url_for('login'))
+    return render_template('forgot_password.html')
+
+# Set up the actual reset page
+@app.route('/reset-password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    if request.method == 'POST':
+        # Check if the token is in the database and valid
+        # Check their code and email
+        validity = check(token, request.form.get("email"))[1]
+        passcode = request.form.get("new_password")
+        email = request.form.get("email")
+        print(validity, passcode)
+        if (not validity) or (not passcode) or (not email):
+            flash("That code was invalid, or you didn't provide an email / password.")
+            return redirect("/forgot-password")
+        elif validity != True:
+            flash(f"That code has expired as of {validity}. Try again.")
+            return redirect("/forgot-password")
+        
+        # Check to ensure their passwords match
+        if passcode != request.form.get("confirm_password"):
+            flash("Those passwords do not match.")
+            return redirect(url_for("reset-password", token=token))
+
+        # Update password if provided
+        elif passcode:
+            db.execute("UPDATE users SET hash = ? WHERE email = ?", generate_password_hash(passcode), email)
+            # Ensure there are no other valid codes to prevent reuse
+            db.execute("UPDATE codes SET valid = NULL WHERE email = ?", email)
+            flash("Your password has been updated.")
+            return redirect("/login")
+        else:
+            flash("You didn't provide a new password, or they didn't match. Please try again.")
+            return render_template("reset-password.html", token=token)
+    return render_template("reset-password.html", token=token)

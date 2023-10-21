@@ -24,9 +24,9 @@
                         <td class="col"> {{ journal.content | e }} </td>
                         <td class="col">
                             {% if journal.response %}
-                                <i>Draft: {{ journal.response }} </i>
+                                <p>Draft: <i>{{ journal.response }} </i></p>
                             {% else %}
-                                <i>You haven't responded to this journal yet.</i></td>
+                                <p><i>You haven't responded to this journal yet.</i></td></p>
                             {% endif %}
                     </tr>
                 {% endfor %}

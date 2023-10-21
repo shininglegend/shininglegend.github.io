@@ -1,14 +1,14 @@
 // Coming soon! Maybe? (Beyond scope of project to be handed in)
 
-// Hide the navbar on admin pages
-$(document).ready(function() {
-    var path = window.location.pathname;
-    if (path.startsWith("/admin")) {
-        $("#mainNavBar").removeClass("navbar-expand-xl");
-    } else {
-        $("#mainNavBar").addClass("navbar-expand-xl");
-    }
-});
+// // Hide the navbar on admin pages
+// $(document).ready(function() {
+//     var path = window.location.pathname;
+//     if (path.startsWith("/admin")) {
+//         $("#mainNavBar").removeClass("navbar-expand-xl");
+//     } else {
+//         $("#mainNavBar").addClass("navbar-expand-xl");
+//     }
+// });
 
 // Written by ChatGPT-4
 document.addEventListener('DOMContentLoaded', function() {

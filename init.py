@@ -2,10 +2,11 @@
 # This code is meant to run once to avoid a circular dependancy
 # Written by Titus Murphy. (c) 2023
 
-
+import os
 from cs50 import SQL
 from flask import Flask
 from flask_session import Session
+from datetime import timedelta
 import logging
 
 # Create a custom logger
@@ -34,9 +35,14 @@ logger.addHandler(console_handler)
 # Configure application
 app = Flask(__name__)
 
+# Import the secret key
+SECRET_KEY = os.environ.get('SECRET_KEY')
+
 # Configure session to use filesystem (instead of signed cookies)
-app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_PERMANENT"] = True
+app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(days=30)
 app.config["SESSION_TYPE"] = "filesystem"
+app.config["SECRET_KEY"] = SECRET_KEY
 # NOTE: This is for development only
 #app.config["DEBUG"] = True 
 Session(app)

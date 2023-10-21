@@ -13,7 +13,7 @@ from helpers.user_management import *
 from helpers.email_notifs import *
 
 # import the app/db in order to avoid circular imports
-from init import app
+from init import app, logger
 
 # Add the admin page blueprints
 app.register_blueprint(admin)
@@ -67,7 +67,8 @@ def page_not_found(error):
 @app.errorhandler(500)
 def server_error(error):
     # Send email notifs of problems
-    send_email('jvctext@gmail', "[ERROR] Server Error", f"Hey, this is just a message to indicated that the server has encountered an error: {error}")
+    #send_email('jvctext@gmail', "[ERROR] Server Error", f"Hey, this is just a message to indicated that the server has encountered an error: {error}")
+    logger.error(error)
     flash("Sorry, there was an error. If the issue presists, please contact us. Thanks!")
     return redirect('/')
 
