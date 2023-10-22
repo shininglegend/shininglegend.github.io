@@ -27,7 +27,11 @@ def save_draft(post_id, content):
 def index():
     # Get all their posts from before
     posts = db.execute("""SELECT * FROM journals WHERE user_id=? 
-                       ORDER BY submitted, time_resp""", session['user_id'])
+                       ORDER BY submitted, time_crte DESC""", session['user_id'])
+    # Remove the draft responses
+    for post in posts:
+        if post['resp_sent'] == 0:
+            post['response'] = None
     return render_template("index.html", posts=posts)
 
 

@@ -134,20 +134,18 @@ def account():
     
     # If POST, update account details
     if request.method == "POST":
-        # Check if passwords match
-        if request.form.get("password") != request.form.get("confirmation"):
-            return render_template("account.html", error="Those passwords do not match.", email=user['email'], name=user['name'])
-
         # Update name if provided
         if request.form.get("name"):
             db.execute("UPDATE users SET name = ? WHERE id = ?", request.form.get("name"), session["user_id"])
-
+        
         # Update password if provided
         if request.form.get("password"):
+            # Check if passwords match
+            if request.form.get("password") != request.form.get("confirmation"):
+                return render_template("account.html", error="Those passwords do not match.", email=user['email'], name=user['name'])
             db.execute("UPDATE users SET hash = ? WHERE id = ?", generate_password_hash(request.form.get("password")), session["user_id"])
-        
+        flash("Your account details have been updated (if you changed anything).")
         return redirect("/")
-    
     return render_template("account.html", email=user['email'], name=user['name'])
 
     

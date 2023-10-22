@@ -22,7 +22,7 @@
                             <tr class="row">
                                 <td class="col"> {{ journal.time_crte|format_datetime }} </td>
                             </tr>
-                            <tr class="row clickable-row" data-href="{{ "/journals/" ~ journal.id }}">
+                            <tr class="row clickable-row {% if journal.response %} distinct {% endif %}" data-href="{{ "/journals/" ~ journal.id }}">
                                 <td class="col goto"></td>
                                 {% if journal.content %}
                                     <td class="col text-center jcontent"> {{ journal.content }} </td>

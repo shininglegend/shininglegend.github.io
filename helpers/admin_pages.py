@@ -41,7 +41,7 @@ def add_client():
             <p>Please visit <a href='{url_for('register', _external=True)}'>ixjournal.com/register</a> to register for your new account.</p><hr>
             <p><i>Hint: You'll need to register using the code above and this email: {email}."""
         send_email(email, "Inner Excellence Journalling Registration", email_content)     
-        return redirect("/clients")
+        return redirect(url_for('admin.clients'))
     else:
         return render_template("add_client.html")
 
@@ -54,16 +54,18 @@ def client_journals():
     # Needed to specify what I get to avoid having 2 id columns
     journals_new = db.execute("""SELECT journals.id, journals.time_crte, users.name, users.email, journals.content, journals.response FROM journals
                               JOIN users ON journals.user_id = users.id 
-                              WHERE journals.submitted=1 AND journals.resp_sent=0 AND journals.content IS NOT NULL""")
+                              WHERE journals.submitted=1 AND journals.resp_sent=0 AND journals.content IS NOT NULL
+                              ORDER BY journals.time_crte DESC""")
     journals_old = db.execute("""SELECT journals.id, journals.time_crte, users.name, users.email, journals.content, journals.response FROM journals
                               JOIN users ON journals.user_id = users.id 
-                              WHERE journals.submitted=1 AND journals.resp_sent=1 AND journals.content IS NOT NULL""")
+                              WHERE journals.submitted=1 AND journals.resp_sent=1 AND journals.content IS NOT NULL
+                              ORDER BY journals.time_crte DESC""")
     print(journals_new, journals_old)
     return render_template("client-journals.html", journals_new = journals_new, journals_old = journals_old)
 
 
 # Review an individual Journal's page
-@admin.route("/respond/<int:post_id>", methods=["GET", "POST"])
+@admin.route("/respond/<post_id>", methods=["GET", "POST"])
 @login_required
 @admin_required
 def respond(post_id):

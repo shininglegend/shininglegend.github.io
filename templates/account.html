@@ -8,15 +8,15 @@
     <div class="container mb-3 text-center">
         <h3>Account Management:</h3>
         <p>Email: <strong>{{ email }} </strong></p>
-        <a href="/email-preferences" class="btn btn-secondary btn-sm"> Change Email Preferences</a>
+        <!-- <a href="/email-preferences" class="btn btn-secondary btn-sm"> Change Email Preferences</a> -->
         <p>To change your email associated with your account, please <a href="/contact-us">contact us</a>.</p>
         <form action="/account" method="post">
             <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="name" name="name" placeholder="Name" type="text" value="{{ name }}">
-            <input aria-describedby="passwordHelpBlock" class="form-control mx-auto w-auto" id="password" minlength=8 name="password" placeholder="New Password" required type="password">
+            <input aria-describedby="passwordHelpBlock" class="form-control mx-auto w-auto" id="password" minlength=8 name="password" placeholder="New Password" type="password">
             <small id="passwordHelpBlock" class="form-text text-muted">
                 Your password must be 8-20 characters long, contain letters, numbers, and special characters, and must not contain emojis.
             </small>
-            <input class="form-control mx-auto w-auto" id="confirmation" minlength=8 name="confirmation" placeholder="Confirm Password" required type="password">
+            <input class="form-control mx-auto w-auto" id="confirmation" minlength=8 name="confirmation" placeholder="Confirm Password" type="password">
             <button class="btn btn-primary" type="submit">Update</button>
         </form>
         {% if error %}

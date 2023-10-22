@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS journals (
         time_updt TIMESTAMP,
         time_resp TIMESTAMP, 
         submitted BOOLEAN DEFAULT 0,
-        resp_draft BOOLEAN DEFAULT 0,
+        resp_sent BOOLEAN DEFAULT 0,
         FOREIGN KEY (user_id) REFERENCES users(id),
         FOREIGN KEY (resp_id) REFERENCES users(id)
 );

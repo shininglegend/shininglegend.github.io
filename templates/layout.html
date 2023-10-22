@@ -43,7 +43,7 @@
                             <ul class="navbar-nav custom-nav ms-auto mt-2">
                                 <li class="nav-item"><a class="nav-link" href="/">Your Journals</a></li>
                                 <li class="nav-item"><a class="nav-link" href="/journal">New Entry</a></li>
-                                <li class="nav-item"><a class="nav-link" ref="innerexcellence.com/newsletter">Newsletter</a></li>
+                                <li class="nav-item"><a class="nav-link" href="https://innerexcellence.com/newsletter">Newsletter</a></li>
                                 {% if session["admin"] %}
                                     <!-- Link to admin home --> 
                                     <li class="nav-item"><a class="nav-link" href="/admin/client-journals">Admin View</a></li> 
@@ -51,6 +51,7 @@
                             </ul>
                         {% endif %}
                         <ul class="navbar-nav custom-nav ms-auto mt-2">
+                            <li class="nav-item"><a class="nav-link" href="/account">Account</a></li>
                             <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
                         </ul>
                     {% else %}

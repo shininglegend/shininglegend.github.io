@@ -68,8 +68,14 @@ body {
     background-color: #abb8c3;
     border-radius: 0.25rem;
     border-style: hidden;
-    font-family: 'Times New Roman', Times, serif;
+    cursor: pointer;
+    /* font-family: 'Times New Roman', Times, serif; */
 }
+
+.distinct {
+    background-color: #8eadc7 !important;
+}
+
 #save-indicator {
     font-size: 0.85rem;
     margin-bottom: 0.85rem;
@@ -133,10 +139,11 @@ nav .navbar-brand {
     border-style: hidden;
     font-family: 'Times New Roman', Times, serif;
 }
-.clients tbody:hover .row {
-    background-color: #f0f0f0; /* Or any other highlight color */
+/* .clients tbody:hover .row {
+    background-color: #f0f0f0; 
     cursor: pointer;
-}
+} 
+*/
 .clients tbody tr:nth-of-type(even) {
     background-color: rgb(209, 207, 207);
 }
