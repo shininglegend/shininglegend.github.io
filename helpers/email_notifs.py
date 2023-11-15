@@ -15,7 +15,7 @@ SENDER_EMAIL = 'titus@innerexcellence.com'
 
 def send_email(to_email, type, body):
     # Append a notice to the end of the body to indicate that this email was sent by an automated system from ixjournals.com
-    body += "<hr><p>This email was sent by an automated system from ixjournal.com. If you recieved this email in error, please let us know by replying to this email.</p>"
+    body += "<hr><p>This email was sent by an automated system from ixjournal.com. If you received this email in error, please let us know by replying to this email.</p>"
     message = Mail(
         from_email=(SENDER_EMAIL, "IX Journal Notifications"),
         to_emails=to_email,

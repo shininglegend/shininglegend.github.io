@@ -207,7 +207,7 @@ def forgot_password():
         reset_code = gencode(email, False, "reset")
         print(reset_code)
         body = f'''
-            <h2>Hello! Someone requested a password reset for {email}.</h2><hr>
+            <h3>Hello! Someone requested a password reset for {email}.</h3><hr>
             If it was you, click <a href="{url_for('reset_password', token=reset_code, _external=True)}">here</a> to reset your password.<br>
             Or copy and paste the following link into your browser:<br>
             {url_for('reset_password', token=reset_code, _external=True)}<br>
