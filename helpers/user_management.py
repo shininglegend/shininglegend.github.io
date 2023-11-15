@@ -246,7 +246,7 @@ def reset_password(token):
         # Check to ensure their passwords match
         if passcode != request.form.get("confirm_password"):
             flash("Those passwords do not match.")
-            return redirect(url_for("reset-password", token=token))
+            return redirect(url_for("reset_password", token=token))
 
         # Update password if provided
         elif passcode:
